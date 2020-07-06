@@ -449,9 +449,10 @@ func (r *ReversiSetting) SetmBorderColor(mBorderColor string) {
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func NewReversiSetting() {
+func NewReversiSetting() *ReversiSetting {
 	r := new(ReversiSetting)
 	r.Reset()
+	return r
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -463,20 +464,20 @@ func NewReversiSetting() {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) Reset() {
-	r.mMode = ReversiConst.DEF_MODE_ONE                     // 現在のモード
-	r.mType = ReversiConst.DEF_TYPE_HARD                    // 現在のタイプ
-	r.mPlayer = ReversiConst.REVERSI_STS_BLACK              // プレイヤーの色
-	r.mAssist = ReversiConst.DEF_ASSIST_ON                  // アシスト
-	r.mGameSpd = ReversiConst.DEF_GAME_SPD_MID              // ゲームスピード
-	r.mEndAnim = ReversiConst.DEF_END_ANIM_ON               // ゲーム終了アニメーション
-	r.mMasuCntMenu = ReversiConst.DEF_MASU_CNT_8            // マスの数
-	r.mMasuCnt = ReversiConst.DEF_MASU_CNT_8_VAL            // マスの数
-	r.mPlayCpuInterVal = ReversiConst.DEF_GAME_SPD_MID_VAL2 // CPU対戦時のインターバル(msec)
-	r.mPlayDrawInterVal = ReversiConst.DEF_GAME_SPD_MID_VAL // 描画のインターバル(msec)
-	r.mEndDrawInterVal = 100                                // 終了アニメーション描画のインターバル(msec)
-	r.mEndInterVal = 500                                    // 終了アニメーションのインターバル(msec)
-	r.mPlayerColor1 = "#000000"                             // プレイヤー1の色
-	r.mPlayerColor2 = "#FFFFFF"                             // プレイヤー2の色
-	r.mBackGroundColor = "#00FF00"                          // 背景の色
-	r.mBorderColor = "#000000"                              // 枠線の色
+	r.mMode = DEF_MODE_ONE                     // 現在のモード
+	r.mType = DEF_TYPE_HARD                    // 現在のタイプ
+	r.mPlayer = REVERSI_STS_BLACK              // プレイヤーの色
+	r.mAssist = DEF_ASSIST_ON                  // アシスト
+	r.mGameSpd = DEF_GAME_SPD_MID              // ゲームスピード
+	r.mEndAnim = DEF_END_ANIM_ON               // ゲーム終了アニメーション
+	r.mMasuCntMenu = DEF_MASU_CNT_8            // マスの数
+	r.mMasuCnt = DEF_MASU_CNT_8_VAL            // マスの数
+	r.mPlayCpuInterVal = DEF_GAME_SPD_MID_VAL2 // CPU対戦時のインターバル(msec)
+	r.mPlayDrawInterVal = DEF_GAME_SPD_MID_VAL // 描画のインターバル(msec)
+	r.mEndDrawInterVal = 100                   // 終了アニメーション描画のインターバル(msec)
+	r.mEndInterVal = 500                       // 終了アニメーションのインターバル(msec)
+	r.mPlayerColor1 = "#000000"                // プレイヤー1の色
+	r.mPlayerColor2 = "#FFFFFF"                // プレイヤー2の色
+	r.mBackGroundColor = "#00FF00"             // 背景の色
+	r.mBorderColor = "#000000"                 // 枠線の色
 }
