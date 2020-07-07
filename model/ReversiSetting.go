@@ -387,7 +387,7 @@ func (r ReversiSetting) GetmPlayerColor2() string {
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r *ReversiSetting) SetmPlayerColor2(mPlayerColor2 string) string {
+func (r *ReversiSetting) SetmPlayerColor2(mPlayerColor2 string) {
 	r.mPlayerColor2 = mPlayerColor2
 }
 
