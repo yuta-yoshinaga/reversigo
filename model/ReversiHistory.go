@@ -100,7 +100,7 @@ func NewReversiHistory() *ReversiHistory {
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r ReversiHistory) Reset() {
+func (r *ReversiHistory) Reset() {
 	r.point.SetX(-1)
 	r.point.SetY(-1)
 	r.color = -1

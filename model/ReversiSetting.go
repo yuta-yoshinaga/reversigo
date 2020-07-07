@@ -463,7 +463,7 @@ func NewReversiSetting() *ReversiSetting {
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r ReversiSetting) Reset() {
+func (r *ReversiSetting) Reset() {
 	r.mMode = DEF_MODE_ONE                     // 現在のモード
 	r.mType = DEF_TYPE_HARD                    // 現在のタイプ
 	r.mPlayer = REVERSI_STS_BLACK              // プレイヤーの色
