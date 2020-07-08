@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
-///	@file			ReversiHistory.go
-///	@brief			リバーシ履歴クラス実装ファイル
+///	@file			ReversiPlayDelegate.go
+///	@brief			リバーシデリゲートファイル
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///	$Version:		$
@@ -18,90 +18,95 @@
 package model
 
 ////////////////////////////////////////////////////////////////////////////////
-///	@class		ReversiHistory
-///	@brief		リバーシ履歴クラス
+///	@interface	ReversiPlayDelegate
+///	@brief		リバーシプレイデリゲート
 ///
 ////////////////////////////////////////////////////////////////////////////////
-type ReversiHistory struct {
-	point *ReversiPoint //!< リバーシポイント
-	color int           //!< カラー
+type ReversiPlayDelegate struct {
+	impl ReversiPlayInterface //!< デリゲート
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ///	@brief			コンストラクタ
-///	@fn				NewReversiHistory() *ReversiHistory {
+///	@fn				NewReversiPlayDelegate(impl *ReversiPlayInterface) *ReversiPlayDelegate
+///	@param[in]		impl *ReversiPlayInterface
 ///	@return			ありません
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func NewReversiHistory() *ReversiHistory {
-	r := new(ReversiHistory)
-	r.point = NewReversiPoint()
-	r.Reset()
+func NewReversiPlayDelegate(impl ReversiPlayInterface) *ReversiPlayDelegate {
+	r := new(ReversiPlayDelegate)
+	r.impl = impl
 	return r
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-///	@brief			ゲッター
-///	@fn				GetPoint() ReversiPoint
-///	@return			point ReversiPoint
+///	@brief			メッセージダイアログ
+///	@fn				ViewMsgDlg(title string, msg string) *FuncsJson
+///	@param[in]		title string	タイトル
+///	@param[in]		msg string		メッセージ
+///	@return			FuncsJson
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r ReversiHistory) GetPoint() *ReversiPoint {
-	return r.point
+func (r ReversiPlayDelegate) ViewMsgDlg(title string, msg string) *FuncsJson {
+	return r.impl.ViewMsgDlg(title, msg)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-///	@brief			セッター
-///	@fn				SetPoint(point *ReversiPoint)
-///	@param[in]		point *ReversiPoint
-///	@return			ありません
+///	@brief			1マス描画
+///	@fn				DrawSingle(y int, x int, sts int, bk int, text string) *FuncsJson
+///	@param[in]		y int		Y座標
+///	@param[in]		x int		X座標
+///	@param[in]		sts int		ステータス
+///	@param[in]		bk int		背景
+///	@param[in]		text string	テキスト
+///	@return			FuncsJson
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r *ReversiHistory) SetPoint(point *ReversiPoint) {
-	r.point = point
+func (r ReversiPlayDelegate) DrawSingle(y int, x int, sts int, bk int, text string) *FuncsJson {
+	return r.impl.DrawSingle(y, x, sts, bk, text)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-///	@brief			ゲッター
-///	@fn				GetColor() int
-///	@return			color int
+///	@brief			現在の色メッセージ
+///	@fn				CurColMsg(text string) *FuncsJson
+///	@param[in]		text string	テキスト
+///	@return			FuncsJson
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r ReversiHistory) GetColor() int {
-	return r.color
+func (r ReversiPlayDelegate) CurColMsg(text string) *FuncsJson {
+	return r.impl.CurColMsg(text)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-///	@brief			セッター
-///	@fn				SetColor(color int)
-///	@param[in]		color int
-///	@return			ありません
+///	@brief			現在のステータスメッセージ
+///	@fn				CurStsMsg(text string) *FuncsJson
+///	@param[in]		text string
+///	@return			FuncsJson
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r *ReversiHistory) SetColor(color int) {
-	r.color = color
+func (r ReversiPlayDelegate) CurStsMsg(text string) *FuncsJson {
+	return r.impl.CurStsMsg(text)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-///	@brief			リセット
-///	@fn				Reset()
-///	@return			ありません
+///	@brief			ウェイト
+///	@fn				Wait(time int) *FuncsJson
+///	@param[in]		time int	ウェイト時間(msec)
+///	@return			FuncsJson
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r *ReversiHistory) Reset() {
-	r.point.SetX(-1)
-	r.point.SetY(-1)
-	r.color = -1
+func (r ReversiPlayDelegate) Wait(time int) *FuncsJson {
+	return r.impl.Wait(time)
 }

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
-///	@file			ReversiPoint.go
-///	@brief			リバーシポイントクラス実装ファイル
+///	@file			CallbacksJson.go
+///	@brief			コールバックJSONクラス実装ファイル
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///	$Version:		$
@@ -18,76 +18,49 @@
 package model
 
 ////////////////////////////////////////////////////////////////////////////////
-///	@class		ReversiPoint
-///	@brief		リバーシポイントクラス
+///	@class		CallbacksJson
+///	@brief		コールバックJSONクラス
 ///
 ////////////////////////////////////////////////////////////////////////////////
-type ReversiPoint struct {
-	x int //!< X座標
-	y int //!< Y座標
+type CallbacksJson struct {
+	funcs []*FuncsJson //!< ファンクションズ
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ///	@brief			コンストラクタ
-///	@fn				NewReversiPoint() *ReversiPoint
-///	@return			*ReversiPoint
-///	@author			Yuta Yoshinaga
-///	@date			2020.07.06
-///
-////////////////////////////////////////////////////////////////////////////////
-func NewReversiPoint() *ReversiPoint {
-	r := new(ReversiPoint)
-	r.x = 0
-	r.y = 0
-	return r
-}
-
-////////////////////////////////////////////////////////////////////////////////
-///	@brief			ゲッター
-///	@fn				GetX() int
-///	@return			x int
-///	@author			Yuta Yoshinaga
-///	@date			2020.07.06
-///
-////////////////////////////////////////////////////////////////////////////////
-func (r ReversiPoint) GetX() int {
-	return r.x
-}
-
-////////////////////////////////////////////////////////////////////////////////
-///	@brief			セッター
-///	@fn			 	SetX(x int)
-///	@param[in]		x int
+///	@fn				NewCallbacksJson() *CallbacksJson
 ///	@return			ありません
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r *ReversiPoint) SetX(x int) {
-	r.x = x
+func NewCallbacksJson() *CallbacksJson {
+	c := new(CallbacksJson)
+	c.funcs = make([]*FuncsJson, 0)
+	return c
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ///	@brief			ゲッター
-///	@fn				GetY() int
-///	@return			y int
+///	@fn				GetFuncs() []*FuncsJson
+///	@return			funcs []*FuncsJson
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r ReversiPoint) GetY() int {
-	return r.y
+func (c CallbacksJson) GetFuncs() []*FuncsJson {
+	return c.funcs
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ///	@brief			セッター
-///	@fn				SetY(y int)
-///	@param[in]		y int
+///	@fn				SetFuncs(funcs []*FuncsJson)
+///	@param[in]		funcs []*FuncsJson
 ///	@return			ありません
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (r *ReversiPoint) SetY(y int) {
-	r.y = y
+func (c *CallbacksJson) SetFuncs(funcs []*FuncsJson) {
+	c.funcs = funcs
 }

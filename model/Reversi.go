@@ -46,6 +46,79 @@ type Reversi struct {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+///	@brief			コンストラクタ
+///	@fn				NewReversi(masuCnt int, masuMax int) *Reversi
+///	@param[in]		masuCnt int		縦横マス数
+///	@param[in]		masuMax int		縦横マス最大数
+///	@return			ありません
+///	@author			Yuta Yoshinaga
+///	@date			2020.07.06
+///
+////////////////////////////////////////////////////////////////////////////////
+func NewReversi(masuCnt int, masuMax int) *Reversi {
+	r := new(Reversi)
+	r.mMasuCnt = masuCnt
+	r.mMasuCntMax = masuMax
+
+	r.mMasuSts = make([][]int, r.mMasuCntMax)
+	r.mMasuStsOld = make([][]int, r.mMasuCntMax)
+	r.mMasuStsEnaB = make([][]int, r.mMasuCntMax)
+	r.mMasuStsCntB = make([][]int, r.mMasuCntMax)
+	r.mMasuStsPassB = make([][]int, r.mMasuCntMax)
+	for i := 0; i < r.mMasuCntMax; i++ {
+		r.mMasuSts[i] = make([]int, r.mMasuCntMax)
+		r.mMasuStsOld[i] = make([]int, r.mMasuCntMax)
+		r.mMasuStsEnaB[i] = make([]int, r.mMasuCntMax)
+		r.mMasuStsCntB[i] = make([]int, r.mMasuCntMax)
+		r.mMasuStsPassB[i] = make([]int, r.mMasuCntMax)
+	}
+	r.mMasuStsAnzB = make([][]*ReversiAnz, r.mMasuCntMax)
+	for i := 0; i < r.mMasuCntMax; i++ {
+		r.mMasuStsAnzB[i] = make([]*ReversiAnz, r.mMasuCntMax)
+		for j := 0; j < r.mMasuCntMax; j++ {
+			r.mMasuStsAnzB[i][j] = NewReversiAnz()
+		}
+	}
+	r.mMasuPointB = make([]*ReversiPoint, r.mMasuCntMax*r.mMasuCntMax)
+	for i := 0; i < (r.mMasuCntMax * r.mMasuCntMax); i++ {
+		r.mMasuPointB[i] = NewReversiPoint()
+	}
+	r.mMasuPointCntB = 0
+	r.mMasuStsEnaW = make([][]int, r.mMasuCntMax)
+	r.mMasuStsCntW = make([][]int, r.mMasuCntMax)
+	r.mMasuStsPassW = make([][]int, r.mMasuCntMax)
+	for i := 0; i < r.mMasuCntMax; i++ {
+		r.mMasuStsEnaW[i] = make([]int, r.mMasuCntMax)
+		r.mMasuStsCntW[i] = make([]int, r.mMasuCntMax)
+		r.mMasuStsPassW[i] = make([]int, r.mMasuCntMax)
+	}
+	r.mMasuStsAnzW = make([][]*ReversiAnz, r.mMasuCntMax)
+	for i := 0; i < r.mMasuCntMax; i++ {
+		r.mMasuStsAnzW[i] = make([]*ReversiAnz, r.mMasuCntMax)
+		for j := 0; j < r.mMasuCntMax; j++ {
+			r.mMasuStsAnzW[i][j] = NewReversiAnz()
+		}
+	}
+	r.mMasuPointW = make([]*ReversiPoint, r.mMasuCntMax*r.mMasuCntMax)
+	for i := 0; i < (r.mMasuCntMax * r.mMasuCntMax); i++ {
+		r.mMasuPointW[i] = NewReversiPoint()
+	}
+	r.mMasuPointCntW = 0
+	r.mMasuBetCntB = 0
+	r.mMasuBetCntW = 0
+	r.mMasuHist = make([]*ReversiHistory, r.mMasuCntMax*r.mMasuCntMax)
+	for i := 0; i < (r.mMasuCntMax * r.mMasuCntMax); i++ {
+		r.mMasuHist[i] = NewReversiHistory()
+	}
+	r.mMasuHistCur = 0
+	for i := 0; i < r.mMasuCntMax; i++ {
+		copy(r.mMasuStsOld[i], r.mMasuSts[i])
+	}
+	r.Reset()
+	return r
+}
+
+////////////////////////////////////////////////////////////////////////////////
 ///	@brief			ゲッター
 ///	@fn				GetmMasuSts() [][]int
 ///	@return			mMasuSts[][] int
@@ -543,79 +616,6 @@ func (r Reversi) GetmMasuHistCur() int {
 ////////////////////////////////////////////////////////////////////////////////
 func (r *Reversi) SetmMasuHistCur(mMasuHistCur int) {
 	r.mMasuHistCur = mMasuHistCur
-}
-
-////////////////////////////////////////////////////////////////////////////////
-///	@brief			コンストラクタ
-///	@fn				public Reversi(int masuCnt,int masuMax)
-///	@param[in]		int masuCnt		縦横マス数
-///	@param[in]		int masuMax		縦横マス最大数
-///	@return			ありません
-///	@author			Yuta Yoshinaga
-///	@date			2020.07.06
-///
-////////////////////////////////////////////////////////////////////////////////
-func NewReversi(masuCnt int, masuMax int) *Reversi {
-	r := new(Reversi)
-	r.mMasuCnt = masuCnt
-	r.mMasuCntMax = masuMax
-
-	r.mMasuSts = make([][]int, r.mMasuCntMax)
-	r.mMasuStsOld = make([][]int, r.mMasuCntMax)
-	r.mMasuStsEnaB = make([][]int, r.mMasuCntMax)
-	r.mMasuStsCntB = make([][]int, r.mMasuCntMax)
-	r.mMasuStsPassB = make([][]int, r.mMasuCntMax)
-	for i := 0; i < r.mMasuCntMax; i++ {
-		r.mMasuSts[i] = make([]int, r.mMasuCntMax)
-		r.mMasuStsOld[i] = make([]int, r.mMasuCntMax)
-		r.mMasuStsEnaB[i] = make([]int, r.mMasuCntMax)
-		r.mMasuStsCntB[i] = make([]int, r.mMasuCntMax)
-		r.mMasuStsPassB[i] = make([]int, r.mMasuCntMax)
-	}
-	r.mMasuStsAnzB = make([][]*ReversiAnz, r.mMasuCntMax)
-	for i := 0; i < r.mMasuCntMax; i++ {
-		r.mMasuStsAnzB[i] = make([]*ReversiAnz, r.mMasuCntMax)
-		for j := 0; j < r.mMasuCntMax; j++ {
-			r.mMasuStsAnzB[i][j] = NewReversiAnz()
-		}
-	}
-	r.mMasuPointB = make([]*ReversiPoint, r.mMasuCntMax*r.mMasuCntMax)
-	for i := 0; i < (r.mMasuCntMax * r.mMasuCntMax); i++ {
-		r.mMasuPointB[i] = NewReversiPoint()
-	}
-	r.mMasuPointCntB = 0
-	r.mMasuStsEnaW = make([][]int, r.mMasuCntMax)
-	r.mMasuStsCntW = make([][]int, r.mMasuCntMax)
-	r.mMasuStsPassW = make([][]int, r.mMasuCntMax)
-	for i := 0; i < r.mMasuCntMax; i++ {
-		r.mMasuStsEnaW[i] = make([]int, r.mMasuCntMax)
-		r.mMasuStsCntW[i] = make([]int, r.mMasuCntMax)
-		r.mMasuStsPassW[i] = make([]int, r.mMasuCntMax)
-	}
-	r.mMasuStsAnzW = make([][]*ReversiAnz, r.mMasuCntMax)
-	for i := 0; i < r.mMasuCntMax; i++ {
-		r.mMasuStsAnzW[i] = make([]*ReversiAnz, r.mMasuCntMax)
-		for j := 0; j < r.mMasuCntMax; j++ {
-			r.mMasuStsAnzW[i][j] = NewReversiAnz()
-		}
-	}
-	r.mMasuPointW = make([]*ReversiPoint, r.mMasuCntMax*r.mMasuCntMax)
-	for i := 0; i < (r.mMasuCntMax * r.mMasuCntMax); i++ {
-		r.mMasuPointW[i] = NewReversiPoint()
-	}
-	r.mMasuPointCntW = 0
-	r.mMasuBetCntB = 0
-	r.mMasuBetCntW = 0
-	r.mMasuHist = make([]*ReversiHistory, r.mMasuCntMax*r.mMasuCntMax)
-	for i := 0; i < (r.mMasuCntMax * r.mMasuCntMax); i++ {
-		r.mMasuHist[i] = NewReversiHistory()
-	}
-	r.mMasuHistCur = 0
-	for i := 0; i < r.mMasuCntMax; i++ {
-		copy(r.mMasuStsOld[i], r.mMasuSts[i])
-	}
-	r.Reset()
-	return r
 }
 
 ////////////////////////////////////////////////////////////////////////////////
