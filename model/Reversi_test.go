@@ -354,3 +354,29 @@ func TestReversi41(t *testing.T) {
 		t.Errorf("NG")
 	}
 }
+
+// TestReversi42 Reset()のテスト
+func TestReversi42(t *testing.T) {
+	r := NewReversi(8, 8)
+	r.Reset()
+}
+
+// TestReversi43 makeMasuSts()のテスト
+func TestReversi43(t *testing.T) {
+	r := NewReversi(8, 8)
+	r.makeMasuSts(REVERSI_STS_BLACK)
+}
+
+// TestReversi44 revMasuSts()のテスト
+func TestReversi44(t *testing.T) {
+	r := NewReversi(8, 8)
+	r.revMasuSts(REVERSI_STS_BLACK, 0, 0)
+}
+
+// TestReversi45 checkPara()のテスト
+func TestReversi45(t *testing.T) {
+	r := NewReversi(8, 8)
+	if r.checkPara(0, 0, 8) != 0 || r.checkPara(-1, 0, 8) != -1 || r.checkPara(1, 0, 8) != 0 || r.checkPara(8, 0, 8) != 0 || r.checkPara(9, 0, 8) != -1 {
+		t.Errorf("NG")
+	}
+}
