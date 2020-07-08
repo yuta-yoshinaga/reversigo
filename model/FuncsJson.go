@@ -64,14 +64,14 @@ func (f FuncsJson) GetFunction() string {
 
 ////////////////////////////////////////////////////////////////////////////////
 ///	@brief			セッター
-///	@fn				SetFunc(function string)
+///	@fn				SetFunction(function string)
 ///	@param[in]		function string
 ///	@return			ありません
 ///	@author			Yuta Yoshinaga
 ///	@date			2020.07.06
 ///
 ////////////////////////////////////////////////////////////////////////////////
-func (f *FuncsJson) SetFunc(function string) {
+func (f *FuncsJson) SetFunction(function string) {
 	f.function = function
 }
 
