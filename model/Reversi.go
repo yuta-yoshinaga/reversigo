@@ -611,7 +611,9 @@ func NewReversi(masuCnt int, masuMax int) *Reversi {
 		r.mMasuHist[i] = NewReversiHistory()
 	}
 	r.mMasuHistCur = 0
-	copy(r.mMasuStsOld, r.mMasuSts)
+	for i := 0; i < r.mMasuCntMax; i++ {
+		copy(r.mMasuStsOld[i], r.mMasuSts[i])
+	}
 	r.Reset()
 	return r
 }
@@ -641,7 +643,9 @@ func (r *Reversi) Reset() {
 	r.makeMasuSts(REVERSI_STS_BLACK)
 	r.makeMasuSts(REVERSI_STS_WHITE)
 	r.mMasuHistCur = 0
-	copy(r.mMasuStsOld, r.mMasuSts)
+	for i := 0; i < r.mMasuCntMax; i++ {
+		copy(r.mMasuStsOld[i], r.mMasuSts[i])
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1096,12 +1100,17 @@ func (r *Reversi) analysisReversiBlack() {
 	var tmpD2 float64
 	for cnt := 0; cnt < r.mMasuPointCntB; cnt++ {
 		// *** 現在ステータスを一旦コピー *** //
-		var tmpMasu [][]int
-		var tmpMasuEnaB [][]int
-		var tmpMasuEnaW [][]int
-		copy(tmpMasu, r.mMasuSts)
-		copy(tmpMasuEnaB, r.mMasuStsEnaB)
-		copy(tmpMasuEnaW, r.mMasuStsEnaW)
+		tmpMasu := make([][]int, r.mMasuCntMax)
+		tmpMasuEnaB := make([][]int, r.mMasuCntMax)
+		tmpMasuEnaW := make([][]int, r.mMasuCntMax)
+		for i := 0; i < r.mMasuCntMax; i++ {
+			tmpMasu[i] = make([]int, r.mMasuCntMax)
+			tmpMasuEnaB[i] = make([]int, r.mMasuCntMax)
+			tmpMasuEnaW[i] = make([]int, r.mMasuCntMax)
+			copy(tmpMasu[i], r.mMasuSts[i])
+			copy(tmpMasuEnaB[i], r.mMasuStsEnaB[i])
+			copy(tmpMasuEnaW[i], r.mMasuStsEnaW[i])
+		}
 		tmpY = r.mMasuPointB[cnt].GetY()
 		tmpX = r.mMasuPointB[cnt].GetX()
 		// 仮に置く
@@ -1247,7 +1256,9 @@ func (r *Reversi) analysisReversiBlack() {
 			r.mMasuStsAnzB[tmpY][tmpX].SetOwnAvg(tmpD1 / tmpD2)
 		}
 		// *** 元に戻す *** //
-		copy(r.mMasuSts, tmpMasu)
+		for i := 0; i < r.mMasuCntMax; i++ {
+			copy(r.mMasuSts[i], tmpMasu[i])
+		}
 		r.makeMasuSts(REVERSI_STS_BLACK)
 		r.makeMasuSts(REVERSI_STS_WHITE)
 	}
@@ -1272,12 +1283,17 @@ func (r *Reversi) analysisReversiWhite() {
 	var tmpD2 float64
 	for cnt := 0; cnt < r.mMasuPointCntW; cnt++ {
 		// *** 現在ステータスを一旦コピー *** //
-		var tmpMasu [][]int
-		var tmpMasuEnaB [][]int
-		var tmpMasuEnaW [][]int
-		copy(tmpMasu, r.mMasuSts)
-		copy(tmpMasuEnaB, r.mMasuStsEnaB)
-		copy(tmpMasuEnaW, r.mMasuStsEnaW)
+		tmpMasu := make([][]int, r.mMasuCntMax)
+		tmpMasuEnaB := make([][]int, r.mMasuCntMax)
+		tmpMasuEnaW := make([][]int, r.mMasuCntMax)
+		for i := 0; i < r.mMasuCntMax; i++ {
+			tmpMasu[i] = make([]int, r.mMasuCntMax)
+			tmpMasuEnaB[i] = make([]int, r.mMasuCntMax)
+			tmpMasuEnaW[i] = make([]int, r.mMasuCntMax)
+			copy(tmpMasu[i], r.mMasuSts[i])
+			copy(tmpMasuEnaB[i], r.mMasuStsEnaB[i])
+			copy(tmpMasuEnaW[i], r.mMasuStsEnaW[i])
+		}
 		tmpY = r.mMasuPointW[cnt].GetY()
 		tmpX = r.mMasuPointW[cnt].GetX()
 		// 仮に置く
@@ -1423,7 +1439,9 @@ func (r *Reversi) analysisReversiWhite() {
 			r.mMasuStsAnzW[tmpY][tmpX].SetOwnAvg(tmpD1 / tmpD2)
 		}
 		// *** 元に戻す *** //
-		copy(r.mMasuSts, tmpMasu)
+		for i := 0; i < r.mMasuCntMax; i++ {
+			copy(r.mMasuSts[i], tmpMasu[i])
+		}
 		r.makeMasuSts(REVERSI_STS_BLACK)
 		r.makeMasuSts(REVERSI_STS_WHITE)
 	}
@@ -1613,7 +1631,9 @@ func (r *Reversi) SetMasuSts(color int, y int, x int) int {
 	ret := -1
 	if r.GetMasuStsEna(color, y, x) != 0 {
 		ret = 0
-		copy(r.mMasuStsOld, r.mMasuSts)
+		for i := 0; i < r.mMasuCntMax; i++ {
+			copy(r.mMasuStsOld[i], r.mMasuSts[i])
+		}
 		r.mMasuSts[y][x] = color
 		r.revMasuSts(color, y, x)
 		r.makeMasuSts(REVERSI_STS_BLACK)
@@ -1642,7 +1662,9 @@ func (r *Reversi) SetMasuSts(color int, y int, x int) int {
 ////////////////////////////////////////////////////////////////////////////////
 func (r *Reversi) SetMasuStsForcibly(color int, y int, x int) int {
 	ret := 0
-	copy(r.mMasuStsOld, r.mMasuSts)
+	for i := 0; i < r.mMasuCntMax; i++ {
+		copy(r.mMasuStsOld[i], r.mMasuSts[i])
+	}
 	r.mMasuSts[y][x] = color
 	return ret
 }
