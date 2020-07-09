@@ -32,12 +32,15 @@ func main() {
 func frontController(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "cookie-name")
 	fmt.Println(session)
-	rpi := session.Values["reversiplay"]
+	rpi, ok := session.Values["reversiplay"].(*model.ReversiPlay)
+	fmt.Println(ok)
 	if rpi == nil {
 		rpi = model.NewReversiPlay()
-		session.Values["reversiplay"] = rpi
+		session.Values["reversiplay"] = *rpi
+		session.Save(r, w)
 	}
-	rp := rpi.(*model.ReversiPlay)
+	// rp := rpi.(*model.ReversiPlay)
+	rp := rpi
 	rp.SetmCallbacks(model.NewCallbacksJson())
 	rp.SetmDelegate(model.NewReversiPlayDelegate(model.NewReversiPlayInterfaceImpl()))
 
@@ -65,16 +68,19 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 		rp.ReversiPlay(x, y)
 		res.SetAuth("[SUCCESS]")
 	}
+	session.Save(r, w)
 	// jsonヘッダーを出力
 	w.Header().Set("Content-Type", "application/json")
 
 	// jsonエンコード
 	res.SetCallbacks(rp.GetmCallbacks())
-	outputJson, err := json.Marshal(&res)
+	outputJson, err := json.Marshal(*res)
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Println(string(outputJson))
 	// jsonデータを出力
-	fmt.Fprint(w, string(outputJson))
-	session.Save(r, w)
+	w.Write(outputJson)
+	// fmt.Fprint(w, string(outputJson))
 }
