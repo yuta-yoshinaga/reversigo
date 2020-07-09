@@ -380,3 +380,210 @@ func TestReversi45(t *testing.T) {
 		t.Errorf("NG")
 	}
 }
+
+// TestReversi46 analysisReversiBlack()のテスト
+func TestReversi46(t *testing.T) {
+	r := NewReversi(8, 8)
+	r.analysisReversiBlack()
+}
+
+// TestReversi47 analysisReversiWhite()のテスト
+func TestReversi47(t *testing.T) {
+	r := NewReversi(8, 8)
+	r.analysisReversiWhite()
+}
+
+// TestReversi48 analysisReversiWhite()のテスト
+func TestReversi48(t *testing.T) {
+	r := NewReversi(8, 8)
+	r.AnalysisReversi(0, 0)
+}
+
+// TestReversi49 GetMasuSts()のテスト
+func TestReversi49(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetMasuSts(0, 0)
+	if sts != REVERSI_STS_NONE {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi50 GetMasuStsOld()のテスト
+func TestReversi50(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetMasuStsOld(0, 0)
+	if sts != REVERSI_STS_NONE {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi51 GetMasuStsEna()のテスト
+func TestReversi51(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetMasuStsEna(REVERSI_STS_BLACK, 0, 0)
+	if sts == 1 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi52 GetMasuStsCnt()のテスト
+func TestReversi52(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetMasuStsCnt(REVERSI_STS_BLACK, 0, 0)
+	if sts != 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi53 GetColorEna()のテスト
+func TestReversi53(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetColorEna(REVERSI_STS_BLACK)
+	if sts != 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi54 GetGameEndSts()のテスト
+func TestReversi54(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetGameEndSts()
+	if sts != 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi55 SetMasuSts()のテスト
+func TestReversi55(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.SetMasuSts(REVERSI_STS_BLACK, 2, 4)
+	if sts != 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi56 SetMasuStsForcibly()のテスト
+func TestReversi56(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.SetMasuStsForcibly(REVERSI_STS_BLACK, 2, 4)
+	if sts != 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi57 SetMasuCnt()のテスト
+func TestReversi57(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.SetMasuCnt(6)
+	if sts != 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi58 GetPoint()のテスト
+func TestReversi58(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetPoint(REVERSI_STS_BLACK, 0)
+	if sts == nil {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi59 GetPointCnt()のテスト
+func TestReversi59(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetPointCnt(REVERSI_STS_BLACK)
+	if sts == 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi60 GetBetCnt()のテスト
+func TestReversi60(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetBetCnt(REVERSI_STS_BLACK)
+	if sts == 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi61 GetPassEna()のテスト
+func TestReversi61(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetPassEna(REVERSI_STS_BLACK, 0, 0)
+	if sts != 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi62 GetHistory()のテスト
+func TestReversi62(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetHistory(0)
+	if sts == nil {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi63 GetHistoryCnt()のテスト
+func TestReversi63(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetHistoryCnt()
+	if sts != 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi64 GetPointAnz()のテスト
+func TestReversi64(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetPointAnz(REVERSI_STS_BLACK, 0, 0)
+	if sts == nil {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi65 CheckEdge()のテスト
+func TestReversi65(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.CheckEdge(REVERSI_STS_BLACK, 0, 0)
+	if sts != 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi66 GetEdgeSideZero()のテスト
+func TestReversi66(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetEdgeSideZero(0, 0)
+	if sts != 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi67 GetEdgeSideOne()のテスト
+func TestReversi67(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetEdgeSideOne(0, 0)
+	if sts == 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi68 GetEdgeSideTwo()のテスト
+func TestReversi68(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetEdgeSideTwo(0, 0)
+	if sts == 0 {
+		t.Errorf("NG")
+	}
+}
+
+// TestReversi69 GetEdgeSideThree()のテスト
+func TestReversi69(t *testing.T) {
+	r := NewReversi(8, 8)
+	sts := r.GetEdgeSideThree(0, 0)
+	if sts == 0 {
+		t.Errorf("NG")
+	}
+}
