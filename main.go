@@ -36,12 +36,12 @@ func main() {
 func frontController(w http.ResponseWriter, r *http.Request) {
 	store.MaxLength(4 * 1024 * 1024)
 	gob.Register(model.ReversiPlay{})
+	gob.Register(model.ReversiSetting{})
 	session, err := store.Get(r, sessionName)
 	if err != nil {
 		// 不正なセッションだった場合は作り直す
 		session, err = store.New(r, sessionName)
 	}
-	// fmt.Println(session)
 	rpi, ok := session.Values["reversiplay"].(model.ReversiPlay)
 	fmt.Println(ok)
 	if ok == false {
@@ -49,13 +49,22 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 		session.Values["reversiplay"] = rpi
 		session.Save(r, w)
 	}
-	// rp := rpi.(*model.ReversiPlay)
+	rsi, ok2 := session.Values["reversisetting"].(model.ReversiSetting)
+	fmt.Println(ok2)
+	if ok2 == false {
+		rsi = *model.NewReversiSetting()
+		session.Values["reversisetting"] = rsi
+		session.Save(r, w)
+	}
 	rp := rpi
+	rp.GetmSetting().Copy(&rsi)
 	rp.SetmCallbacks(model.NewCallbacksJson())
 	rp.SetmDelegate(model.NewReversiPlayDelegate(model.NewReversiPlayInterfaceImpl()))
 
 	r.ParseForm()
 	fmt.Println(r.Form)
+	fmt.Printf("%p ", &rsi)
+	fmt.Println(rsi)
 	function := r.FormValue("func")
 	res := model.NewResJson()
 	if function == "setSetting" {
@@ -64,9 +73,9 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 		if err := json.Unmarshal([]byte(jsonText), &s); err != nil {
 			log.Fatal(err)
 		}
-		// デコードしたデータを表示
-		fmt.Println(s)
-		rp.SetmSetting(s)
+		rsi.Copy(s)
+		session.Values["reversisetting"] = rsi
+		rp.GetmSetting().Copy(s)
 		rp.Reset()
 		res.SetAuth("[SUCCESS]")
 	} else if function == "reset" {
@@ -78,6 +87,8 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 		rp.ReversiPlay(y, x)
 		res.SetAuth("[SUCCESS]")
 	}
+	fmt.Printf("%p ", &rsi)
+	fmt.Println(rsi)
 	session.Values["reversiplay"] = rpi
 	err = session.Save(r, w)
 	if err != nil {

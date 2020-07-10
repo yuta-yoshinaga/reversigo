@@ -481,3 +481,30 @@ func (r *ReversiSetting) Reset() {
 	r.BackGroundColor = "#00FF00"             // 背景の色
 	r.BorderColor = "#000000"                 // 枠線の色
 }
+
+////////////////////////////////////////////////////////////////////////////////
+///	@brief			リセット
+///	@fn				Reset()
+///	@return			ありません
+///	@author			Yuta Yoshinaga
+///	@date			2020.07.06
+///
+////////////////////////////////////////////////////////////////////////////////
+func (r *ReversiSetting) Copy(s *ReversiSetting) {
+	r.Mode = s.Mode                         // 現在のモード
+	r.Type = s.Type                         // 現在のタイプ
+	r.Player = s.Player                     // プレイヤーの色
+	r.Assist = s.Assist                     // アシスト
+	r.GameSpd = s.GameSpd                   // ゲームスピード
+	r.EndAnim = s.EndAnim                   // ゲーム終了アニメーション
+	r.MasuCntMenu = s.MasuCntMenu           // マスの数
+	r.MasuCnt = s.MasuCnt                   // マスの数
+	r.PlayCpuInterVal = s.PlayCpuInterVal   // CPU対戦時のインターバル(msec)
+	r.PlayDrawInterVal = s.PlayDrawInterVal // 描画のインターバル(msec)
+	r.EndDrawInterVal = s.EndDrawInterVal   // 終了アニメーション描画のインターバル(msec)
+	r.EndInterVal = s.EndInterVal           // 終了アニメーションのインターバル(msec)
+	r.PlayerColor1 = s.PlayerColor1         // プレイヤー1の色
+	r.PlayerColor2 = s.PlayerColor2         // プレイヤー2の色
+	r.BackGroundColor = s.BackGroundColor   // 背景の色
+	r.BorderColor = s.BorderColor           // 枠線の色
+}

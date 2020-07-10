@@ -189,7 +189,7 @@ $(document).ready(function() {
         }
 
         var oldTheme = reversiSetting.Theme;
-        reversiSetting.mTheme = $("#mTheme .active input").val();
+        reversiSetting.Theme = $("#mTheme .active input").val();
         $('head link[href=".\/css\/theme\/' + oldTheme + '\/bootstrap.min.css"]').remove();
         var addEle = '<link href=".\/css\/theme\/' + reversiSetting.Theme + '\/bootstrap.min.css" rel="stylesheet" media="screen">';
         $('head').append(addEle);
@@ -406,7 +406,7 @@ function drawSingle(y, x, sts, bk, text) {
         tgtEle2.css('background-color', reversiSetting.PlayerColor2);
     }
     // *** マスの状態変更 *** //
-    var bkCol = reversiSetting.mBackGroundColor;
+    var bkCol = reversiSetting.BackGroundColor;
     if (bk == 1) {
         tgtEle.removeClass('cell_back_green');
         tgtEle.removeClass('cell_back_magenta');
@@ -453,7 +453,9 @@ function drawSingle(y, x, sts, bk, text) {
     }
     tgtEle.css('background-color', bkCol);
     // *** テキストの状態変更 *** //
-    if (text == '0' || text == 0) text = "";
+    if (text == '0' || text == 0) {
+        text = "";
+    }
     tgtEle2.text(text);
 }
 
