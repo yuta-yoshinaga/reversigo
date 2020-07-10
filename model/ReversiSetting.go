@@ -23,22 +23,22 @@ package model
 ///
 ////////////////////////////////////////////////////////////////////////////////
 type ReversiSetting struct {
-	mMode             int    //!< 現在のモード
-	mType             int    //!< 現在のタイプ
-	mPlayer           int    //!< プレイヤーの色
-	mAssist           int    //!< アシスト
-	mGameSpd          int    //!< ゲームスピード
-	mEndAnim          int    //!< ゲーム終了アニメーション
-	mMasuCntMenu      int    //!< マスの数
-	mMasuCnt          int    //!< マスの数
-	mPlayCpuInterVal  int    //!< CPU対戦時のインターバル(msec)
-	mPlayDrawInterVal int    //!< 描画のインターバル(msec)
-	mEndDrawInterVal  int    //!< 終了アニメーション描画のインターバル(msec)
-	mEndInterVal      int    //!< 終了アニメーションのインターバル(msec)
-	mPlayerColor1     string //!< プレイヤー1の色
-	mPlayerColor2     string //!< プレイヤー2の色
-	mBackGroundColor  string //!< 背景の色
-	mBorderColor      string //!< 枠線の色
+	Mode             int    //!< 現在のモード
+	Type             int    //!< 現在のタイプ
+	Player           int    //!< プレイヤーの色
+	Assist           int    //!< アシスト
+	GameSpd          int    //!< ゲームスピード
+	EndAnim          int    //!< ゲーム終了アニメーション
+	MasuCntMenu      int    //!< マスの数
+	MasuCnt          int    //!< マスの数
+	PlayCpuInterVal  int    //!< CPU対戦時のインターバル(msec)
+	PlayDrawInterVal int    //!< 描画のインターバル(msec)
+	EndDrawInterVal  int    //!< 終了アニメーション描画のインターバル(msec)
+	EndInterVal      int    //!< 終了アニメーションのインターバル(msec)
+	PlayerColor1     string //!< プレイヤー1の色
+	PlayerColor2     string //!< プレイヤー2の色
+	BackGroundColor  string //!< 背景の色
+	BorderColor      string //!< 枠線の色
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -64,7 +64,7 @@ func NewReversiSetting() *ReversiSetting {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmMode() int {
-	return r.mMode
+	return r.Mode
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ func (r ReversiSetting) GetmMode() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmMode(mMode int) {
-	r.mMode = mMode
+	r.Mode = mMode
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -89,7 +89,7 @@ func (r *ReversiSetting) SetmMode(mMode int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmType() int {
-	return r.mType
+	return r.Type
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -102,7 +102,7 @@ func (r ReversiSetting) GetmType() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmType(mType int) {
-	r.mType = mType
+	r.Type = mType
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,7 +114,7 @@ func (r *ReversiSetting) SetmType(mType int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmPlayer() int {
-	return r.mPlayer
+	return r.Player
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -127,7 +127,7 @@ func (r ReversiSetting) GetmPlayer() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmPlayer(mPlayer int) {
-	r.mPlayer = mPlayer
+	r.Player = mPlayer
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -139,7 +139,7 @@ func (r *ReversiSetting) SetmPlayer(mPlayer int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmAssist() int {
-	return r.mAssist
+	return r.Assist
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -152,7 +152,7 @@ func (r ReversiSetting) GetmAssist() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmAssist(mAssist int) {
-	r.mAssist = mAssist
+	r.Assist = mAssist
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -164,7 +164,7 @@ func (r *ReversiSetting) SetmAssist(mAssist int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmGameSpd() int {
-	return r.mGameSpd
+	return r.GameSpd
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -177,7 +177,7 @@ func (r ReversiSetting) GetmGameSpd() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmGameSpd(mGameSpd int) {
-	r.mGameSpd = mGameSpd
+	r.GameSpd = mGameSpd
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -189,7 +189,7 @@ func (r *ReversiSetting) SetmGameSpd(mGameSpd int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmEndAnim() int {
-	return r.mEndAnim
+	return r.EndAnim
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -202,7 +202,7 @@ func (r ReversiSetting) GetmEndAnim() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmEndAnim(mEndAnim int) {
-	r.mEndAnim = mEndAnim
+	r.EndAnim = mEndAnim
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -214,7 +214,7 @@ func (r *ReversiSetting) SetmEndAnim(mEndAnim int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmMasuCntMenu() int {
-	return r.mMasuCntMenu
+	return r.MasuCntMenu
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -227,7 +227,7 @@ func (r ReversiSetting) GetmMasuCntMenu() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmMasuCntMenu(mMasuCntMenu int) {
-	r.mMasuCntMenu = mMasuCntMenu
+	r.MasuCntMenu = mMasuCntMenu
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -239,7 +239,7 @@ func (r *ReversiSetting) SetmMasuCntMenu(mMasuCntMenu int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmMasuCnt() int {
-	return r.mMasuCnt
+	return r.MasuCnt
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -252,7 +252,7 @@ func (r ReversiSetting) GetmMasuCnt() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmMasuCnt(mMasuCnt int) {
-	r.mMasuCnt = mMasuCnt
+	r.MasuCnt = mMasuCnt
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -264,7 +264,7 @@ func (r *ReversiSetting) SetmMasuCnt(mMasuCnt int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmPlayCpuInterVal() int {
-	return r.mPlayCpuInterVal
+	return r.PlayCpuInterVal
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -277,7 +277,7 @@ func (r ReversiSetting) GetmPlayCpuInterVal() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmPlayCpuInterVal(mPlayCpuInterVal int) {
-	r.mPlayCpuInterVal = mPlayCpuInterVal
+	r.PlayCpuInterVal = mPlayCpuInterVal
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -289,7 +289,7 @@ func (r *ReversiSetting) SetmPlayCpuInterVal(mPlayCpuInterVal int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmPlayDrawInterVal() int {
-	return r.mPlayDrawInterVal
+	return r.PlayDrawInterVal
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -302,7 +302,7 @@ func (r ReversiSetting) GetmPlayDrawInterVal() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmPlayDrawInterVal(mPlayDrawInterVal int) {
-	r.mPlayDrawInterVal = mPlayDrawInterVal
+	r.PlayDrawInterVal = mPlayDrawInterVal
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -314,7 +314,7 @@ func (r *ReversiSetting) SetmPlayDrawInterVal(mPlayDrawInterVal int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmEndDrawInterVal() int {
-	return r.mEndDrawInterVal
+	return r.EndDrawInterVal
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -327,7 +327,7 @@ func (r ReversiSetting) GetmEndDrawInterVal() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmEndDrawInterVal(mEndDrawInterVal int) {
-	r.mEndDrawInterVal = mEndDrawInterVal
+	r.EndDrawInterVal = mEndDrawInterVal
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -339,7 +339,7 @@ func (r *ReversiSetting) SetmEndDrawInterVal(mEndDrawInterVal int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmEndInterVal() int {
-	return r.mEndInterVal
+	return r.EndInterVal
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -352,7 +352,7 @@ func (r ReversiSetting) GetmEndInterVal() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmEndInterVal(mEndInterVal int) {
-	r.mEndInterVal = mEndInterVal
+	r.EndInterVal = mEndInterVal
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -364,7 +364,7 @@ func (r *ReversiSetting) SetmEndInterVal(mEndInterVal int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmPlayerColor1() string {
-	return r.mPlayerColor1
+	return r.PlayerColor1
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -377,7 +377,7 @@ func (r ReversiSetting) GetmPlayerColor1() string {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmPlayerColor1(mPlayerColor1 string) {
-	r.mPlayerColor1 = mPlayerColor1
+	r.PlayerColor1 = mPlayerColor1
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -389,7 +389,7 @@ func (r *ReversiSetting) SetmPlayerColor1(mPlayerColor1 string) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmPlayerColor2() string {
-	return r.mPlayerColor2
+	return r.PlayerColor2
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -402,7 +402,7 @@ func (r ReversiSetting) GetmPlayerColor2() string {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmPlayerColor2(mPlayerColor2 string) {
-	r.mPlayerColor2 = mPlayerColor2
+	r.PlayerColor2 = mPlayerColor2
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -414,7 +414,7 @@ func (r *ReversiSetting) SetmPlayerColor2(mPlayerColor2 string) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmBackGroundColor() string {
-	return r.mBackGroundColor
+	return r.BackGroundColor
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -427,7 +427,7 @@ func (r ReversiSetting) GetmBackGroundColor() string {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmBackGroundColor(mBackGroundColor string) {
-	r.mBackGroundColor = mBackGroundColor
+	r.BackGroundColor = mBackGroundColor
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -439,7 +439,7 @@ func (r *ReversiSetting) SetmBackGroundColor(mBackGroundColor string) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiSetting) GetmBorderColor() string {
-	return r.mBorderColor
+	return r.BorderColor
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -452,7 +452,7 @@ func (r ReversiSetting) GetmBorderColor() string {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) SetmBorderColor(mBorderColor string) {
-	r.mBorderColor = mBorderColor
+	r.BorderColor = mBorderColor
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -464,20 +464,20 @@ func (r *ReversiSetting) SetmBorderColor(mBorderColor string) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiSetting) Reset() {
-	r.mMode = DEF_MODE_ONE                     // 現在のモード
-	r.mType = DEF_TYPE_HARD                    // 現在のタイプ
-	r.mPlayer = REVERSI_STS_BLACK              // プレイヤーの色
-	r.mAssist = DEF_ASSIST_ON                  // アシスト
-	r.mGameSpd = DEF_GAME_SPD_MID              // ゲームスピード
-	r.mEndAnim = DEF_END_ANIM_ON               // ゲーム終了アニメーション
-	r.mMasuCntMenu = DEF_MASU_CNT_8            // マスの数
-	r.mMasuCnt = DEF_MASU_CNT_8_VAL            // マスの数
-	r.mPlayCpuInterVal = DEF_GAME_SPD_MID_VAL2 // CPU対戦時のインターバル(msec)
-	r.mPlayDrawInterVal = DEF_GAME_SPD_MID_VAL // 描画のインターバル(msec)
-	r.mEndDrawInterVal = 100                   // 終了アニメーション描画のインターバル(msec)
-	r.mEndInterVal = 500                       // 終了アニメーションのインターバル(msec)
-	r.mPlayerColor1 = "#000000"                // プレイヤー1の色
-	r.mPlayerColor2 = "#FFFFFF"                // プレイヤー2の色
-	r.mBackGroundColor = "#00FF00"             // 背景の色
-	r.mBorderColor = "#000000"                 // 枠線の色
+	r.Mode = DEF_MODE_ONE                     // 現在のモード
+	r.Type = DEF_TYPE_HARD                    // 現在のタイプ
+	r.Player = REVERSI_STS_BLACK              // プレイヤーの色
+	r.Assist = DEF_ASSIST_ON                  // アシスト
+	r.GameSpd = DEF_GAME_SPD_MID              // ゲームスピード
+	r.EndAnim = DEF_END_ANIM_ON               // ゲーム終了アニメーション
+	r.MasuCntMenu = DEF_MASU_CNT_8            // マスの数
+	r.MasuCnt = DEF_MASU_CNT_8_VAL            // マスの数
+	r.PlayCpuInterVal = DEF_GAME_SPD_MID_VAL2 // CPU対戦時のインターバル(msec)
+	r.PlayDrawInterVal = DEF_GAME_SPD_MID_VAL // 描画のインターバル(msec)
+	r.EndDrawInterVal = 100                   // 終了アニメーション描画のインターバル(msec)
+	r.EndInterVal = 500                       // 終了アニメーションのインターバル(msec)
+	r.PlayerColor1 = "#000000"                // プレイヤー1の色
+	r.PlayerColor2 = "#FFFFFF"                // プレイヤー2の色
+	r.BackGroundColor = "#00FF00"             // 背景の色
+	r.BorderColor = "#000000"                 // 枠線の色
 }

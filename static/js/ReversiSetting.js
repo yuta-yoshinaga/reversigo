@@ -58,7 +58,7 @@ var DEF_MASU_CNT_MAX_VAL = DEF_MASU_CNT_16_VAL; //!< マス縦横最大
  *	@brief		リバーシ設定クラス
  */
 ////////////////////////////////////////////////////////////////////////////////
-var ReversiSetting = (function () {
+var ReversiSetting = (function() {
     ////////////////////////////////////////////////////////////////////////////////
     /**	@brief			コンストラクタ
      *	@fn				public constructor()
@@ -68,23 +68,23 @@ var ReversiSetting = (function () {
      */
     ////////////////////////////////////////////////////////////////////////////////
     function ReversiSetting() {
-        this.mMode = DEF_MODE_ONE; //!< 現在のモード
-        this.mType = DEF_TYPE_HARD; //!< 現在のタイプ
-        this.mPlayer = REVERSI_STS_BLACK; //!< プレイヤーの色
-        this.mAssist = DEF_ASSIST_ON; //!< アシスト
-        this.mGameSpd = DEF_GAME_SPD_MID; //!< ゲームスピード
-        this.mEndAnim = DEF_END_ANIM_ON; //!< ゲーム終了アニメーション
-        this.mMasuCntMenu = DEF_MASU_CNT_8; //!< マスの数
-        this.mMasuCnt = DEF_MASU_CNT_8_VAL; //!< マスの数
-        this.mPlayCpuInterVal = DEF_GAME_SPD_MID_VAL2; //!< CPU対戦時のインターバル(msec)
-        this.mPlayDrawInterVal = DEF_GAME_SPD_MID_VAL; //!< 描画のインターバル(msec)
-        this.mEndDrawInterVal = 100; //!< 終了アニメーション描画のインターバル(msec)
-        this.mEndInterVal = 500; //!< 終了アニメーションのインターバル(msec)
-        this.mTheme = 'Cerulean'; //!< テーマ名
-        this.mPlayerColor1 = '#000000'; //!< プレイヤー1の色
-        this.mPlayerColor2 = '#ffffff'; //!< プレイヤー2の色
-        this.mBackGroundColor = '#00ff00'; //!< 背景の色
-        this.mBorderColor = '#000000'; //!< 枠線の色
+        this.Mode = DEF_MODE_ONE; //!< 現在のモード
+        this.Type = DEF_TYPE_HARD; //!< 現在のタイプ
+        this.Player = REVERSI_STS_BLACK; //!< プレイヤーの色
+        this.Assist = DEF_ASSIST_ON; //!< アシスト
+        this.GameSpd = DEF_GAME_SPD_MID; //!< ゲームスピード
+        this.EndAnim = DEF_END_ANIM_ON; //!< ゲーム終了アニメーション
+        this.MasuCntMenu = DEF_MASU_CNT_8; //!< マスの数
+        this.MasuCnt = DEF_MASU_CNT_8_VAL; //!< マスの数
+        this.PlayCpuInterVal = DEF_GAME_SPD_MID_VAL2; //!< CPU対戦時のインターバル(msec)
+        this.PlayDrawInterVal = DEF_GAME_SPD_MID_VAL; //!< 描画のインターバル(msec)
+        this.EndDrawInterVal = 100; //!< 終了アニメーション描画のインターバル(msec)
+        this.EndInterVal = 500; //!< 終了アニメーションのインターバル(msec)
+        this.Theme = 'Cerulean'; //!< テーマ名
+        this.PlayerColor1 = '#000000'; //!< プレイヤー1の色
+        this.PlayerColor2 = '#ffffff'; //!< プレイヤー2の色
+        this.BackGroundColor = '#00ff00'; //!< 背景の色
+        this.BorderColor = '#000000'; //!< 枠線の色
     }
     return ReversiSetting;
 }());

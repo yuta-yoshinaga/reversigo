@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -8,35 +9,44 @@ import (
 	"reversigo/model"
 	"strconv"
 
+	"github.com/gorilla/securecookie"
 	"github.com/gorilla/sessions"
 )
 
 var (
 	// key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
-	key   = []byte("super-secret-key")
-	store = sessions.NewCookieStore(key)
+	// key   = []byte("super-secret-key")
+	// store = sessions.NewCookieStore(key)
+	store       *sessions.FilesystemStore = sessions.NewFilesystemStore("", securecookie.GenerateRandomKey(64))
+	sessionName                           = "cookie-name"
 )
 
 func main() {
-	//ディレクトリを指定する
+	// ディレクトリを指定する
 	fs := http.FileServer(http.Dir("static"))
-	//ルーティング設定。"/"というアクセスがきたらstaticディレクトリのコンテンツを表示させる
+	// ルーティング設定。"/"というアクセスがきたらstaticディレクトリのコンテンツを表示させる
 	http.Handle("/", fs)
-	http.HandleFunc("/FrontController", frontController) //アクセスのルーティングを設定します。
-
+	// アクセスのルーティングを設定します。
+	http.HandleFunc("/FrontController", frontController)
 	log.Println("Listening...")
 	// 80ポートでサーバーを立ち上げる
 	http.ListenAndServe(":80", nil)
 }
 
 func frontController(w http.ResponseWriter, r *http.Request) {
-	session, _ := store.Get(r, "cookie-name")
-	fmt.Println(session)
-	rpi, ok := session.Values["reversiplay"].(*model.ReversiPlay)
+	store.MaxLength(4 * 1024 * 1024)
+	gob.Register(model.ReversiPlay{})
+	session, err := store.Get(r, sessionName)
+	if err != nil {
+		// 不正なセッションだった場合は作り直す
+		session, err = store.New(r, sessionName)
+	}
+	// fmt.Println(session)
+	rpi, ok := session.Values["reversiplay"].(model.ReversiPlay)
 	fmt.Println(ok)
-	if rpi == nil {
-		rpi = model.NewReversiPlay()
-		session.Values["reversiplay"] = *rpi
+	if ok == false {
+		rpi = *model.NewReversiPlay()
+		session.Values["reversiplay"] = rpi
 		session.Save(r, w)
 	}
 	// rp := rpi.(*model.ReversiPlay)
@@ -65,23 +75,22 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 	} else if function == "reversiPlay" {
 		y, _ := strconv.Atoi(r.FormValue("y"))
 		x, _ := strconv.Atoi(r.FormValue("x"))
-		fmt.Println(y)
-		fmt.Println(x)
 		rp.ReversiPlay(y, x)
 		res.SetAuth("[SUCCESS]")
 	}
-	session.Save(r, w)
+	session.Values["reversiplay"] = rpi
+	err = session.Save(r, w)
+	if err != nil {
+		panic(err)
+	}
 	// jsonヘッダーを出力
 	w.Header().Set("Content-Type", "application/json")
-
 	// jsonエンコード
 	res.SetCallbacks(rp.GetmCallbacks())
 	outputJson, err := json.Marshal(res)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(outputJson))
 	// jsonデータを出力
 	w.Write(outputJson)
-	// fmt.Fprint(w, string(outputJson))
 }

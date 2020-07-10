@@ -23,7 +23,7 @@ package model
 ///
 ////////////////////////////////////////////////////////////////////////////////
 type ReversiPlayDelegate struct {
-	impl ReversiPlayInterface //!< デリゲート
+	Impl ReversiPlayInterface //!< デリゲート
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ type ReversiPlayDelegate struct {
 ////////////////////////////////////////////////////////////////////////////////
 func NewReversiPlayDelegate(impl ReversiPlayInterface) *ReversiPlayDelegate {
 	r := new(ReversiPlayDelegate)
-	r.impl = impl
+	r.Impl = impl
 	return r
 }
 
@@ -52,7 +52,7 @@ func NewReversiPlayDelegate(impl ReversiPlayInterface) *ReversiPlayDelegate {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlayDelegate) ViewMsgDlg(title string, msg string) *FuncsJson {
-	return r.impl.ViewMsgDlg(title, msg)
+	return r.Impl.ViewMsgDlg(title, msg)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ func (r ReversiPlayDelegate) ViewMsgDlg(title string, msg string) *FuncsJson {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlayDelegate) DrawSingle(y int, x int, sts int, bk int, text string) *FuncsJson {
-	return r.impl.DrawSingle(y, x, sts, bk, text)
+	return r.Impl.DrawSingle(y, x, sts, bk, text)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ func (r ReversiPlayDelegate) DrawSingle(y int, x int, sts int, bk int, text stri
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlayDelegate) CurColMsg(text string) *FuncsJson {
-	return r.impl.CurColMsg(text)
+	return r.Impl.CurColMsg(text)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -95,7 +95,7 @@ func (r ReversiPlayDelegate) CurColMsg(text string) *FuncsJson {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlayDelegate) CurStsMsg(text string) *FuncsJson {
-	return r.impl.CurStsMsg(text)
+	return r.Impl.CurStsMsg(text)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -108,5 +108,5 @@ func (r ReversiPlayDelegate) CurStsMsg(text string) *FuncsJson {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlayDelegate) Wait(time int) *FuncsJson {
-	return r.impl.Wait(time)
+	return r.Impl.Wait(time)
 }

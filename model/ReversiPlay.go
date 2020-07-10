@@ -29,17 +29,17 @@ import (
 ///
 ////////////////////////////////////////////////////////////////////////////////
 type ReversiPlay struct {
-	mReversi    *Reversi             //!< リバーシクラス
-	mSetting    *ReversiSetting      //!< リバーシ設定クラス
-	mCurColor   int                  //!< 現在の色
-	mCpu        []*ReversiPoint      //!< CPU用ワーク
-	mEdge       []*ReversiPoint      //!< CPU用角マスワーク
-	mPassEnaB   int                  //!< 黒のパス有効フラグ
-	mPassEnaW   int                  //!< 白のパス有効フラグ
-	mGameEndSts int                  //!< ゲーム終了ステータス
-	mPlayLock   int                  //!< プレイロック
-	mDelegate   *ReversiPlayDelegate //!< デリゲート
-	mCallbacks  *CallbacksJson       //!< コールバック
+	Reversi    *Reversi             //!< リバーシクラス
+	Setting    *ReversiSetting      //!< リバーシ設定クラス
+	CurColor   int                  //!< 現在の色
+	Cpu        []*ReversiPoint      //!< CPU用ワーク
+	Edge       []*ReversiPoint      //!< CPU用角マスワーク
+	PassEnaB   int                  //!< 黒のパス有効フラグ
+	PassEnaW   int                  //!< 白のパス有効フラグ
+	GameEndSts int                  //!< ゲーム終了ステータス
+	PlayLock   int                  //!< プレイロック
+	Delegate   *ReversiPlayDelegate //!< デリゲート
+	Callbacks  *CallbacksJson       //!< コールバック
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,21 +52,21 @@ type ReversiPlay struct {
 ////////////////////////////////////////////////////////////////////////////////
 func NewReversiPlay() *ReversiPlay {
 	r := new(ReversiPlay)
-	r.mReversi = NewReversi(DEF_MASU_CNT_MAX_VAL, DEF_MASU_CNT_MAX_VAL)
-	r.mSetting = NewReversiSetting()
-	r.mCpu = make([]*ReversiPoint, DEF_MASU_CNT_MAX_VAL*DEF_MASU_CNT_MAX_VAL)
-	r.mEdge = make([]*ReversiPoint, DEF_MASU_CNT_MAX_VAL*DEF_MASU_CNT_MAX_VAL)
+	r.Reversi = NewReversi(DEF_MASU_CNT_MAX_VAL, DEF_MASU_CNT_MAX_VAL)
+	r.Setting = NewReversiSetting()
+	r.Cpu = make([]*ReversiPoint, DEF_MASU_CNT_MAX_VAL*DEF_MASU_CNT_MAX_VAL)
+	r.Edge = make([]*ReversiPoint, DEF_MASU_CNT_MAX_VAL*DEF_MASU_CNT_MAX_VAL)
 	for i := 0; i < (DEF_MASU_CNT_MAX_VAL * DEF_MASU_CNT_MAX_VAL); i++ {
-		r.mCpu[i] = NewReversiPoint()
-		r.mEdge[i] = NewReversiPoint()
+		r.Cpu[i] = NewReversiPoint()
+		r.Edge[i] = NewReversiPoint()
 	}
-	r.mCurColor = 0
-	r.mPassEnaB = 0
-	r.mPassEnaW = 0
-	r.mGameEndSts = 0
-	r.mPlayLock = 0
-	r.mDelegate = nil
-	r.mCallbacks = nil
+	r.CurColor = 0
+	r.PassEnaB = 0
+	r.PassEnaW = 0
+	r.GameEndSts = 0
+	r.PlayLock = 0
+	r.Delegate = nil
+	r.Callbacks = nil
 	rand.Seed(time.Now().UnixNano())
 	r.Reset()
 	return r
@@ -81,7 +81,7 @@ func NewReversiPlay() *ReversiPlay {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmReversi() *Reversi {
-	return r.mReversi
+	return r.Reversi
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ func (r ReversiPlay) GetmReversi() *Reversi {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmReversi(mReversi *Reversi) {
-	r.mReversi = mReversi
+	r.Reversi = mReversi
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -106,7 +106,7 @@ func (r *ReversiPlay) SetmReversi(mReversi *Reversi) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmSetting() *ReversiSetting {
-	return r.mSetting
+	return r.Setting
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ func (r ReversiPlay) GetmSetting() *ReversiSetting {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmSetting(mSetting *ReversiSetting) {
-	r.mSetting = mSetting
+	r.Setting = mSetting
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@ func (r *ReversiPlay) SetmSetting(mSetting *ReversiSetting) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmCurColor() int {
-	return r.mCurColor
+	return r.CurColor
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -144,7 +144,7 @@ func (r ReversiPlay) GetmCurColor() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmCurColor(mCurColor int) {
-	r.mCurColor = mCurColor
+	r.CurColor = mCurColor
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -156,7 +156,7 @@ func (r *ReversiPlay) SetmCurColor(mCurColor int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmCpu() []*ReversiPoint {
-	return r.mCpu
+	return r.Cpu
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -169,7 +169,7 @@ func (r ReversiPlay) GetmCpu() []*ReversiPoint {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmCpu(mCpu []*ReversiPoint) {
-	r.mCpu = mCpu
+	r.Cpu = mCpu
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -181,7 +181,7 @@ func (r *ReversiPlay) SetmCpu(mCpu []*ReversiPoint) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmEdge() []*ReversiPoint {
-	return r.mEdge
+	return r.Edge
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -194,7 +194,7 @@ func (r ReversiPlay) GetmEdge() []*ReversiPoint {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmEdge(mEdge []*ReversiPoint) {
-	r.mEdge = mEdge
+	r.Edge = mEdge
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -206,7 +206,7 @@ func (r *ReversiPlay) SetmEdge(mEdge []*ReversiPoint) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmPassEnaB() int {
-	return r.mPassEnaB
+	return r.PassEnaB
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -219,7 +219,7 @@ func (r ReversiPlay) GetmPassEnaB() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmPassEnaB(mPassEnaB int) {
-	r.mPassEnaB = mPassEnaB
+	r.PassEnaB = mPassEnaB
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -231,7 +231,7 @@ func (r *ReversiPlay) SetmPassEnaB(mPassEnaB int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmPassEnaW() int {
-	return r.mPassEnaW
+	return r.PassEnaW
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -244,7 +244,7 @@ func (r ReversiPlay) GetmPassEnaW() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmPassEnaW(mPassEnaW int) {
-	r.mPassEnaW = mPassEnaW
+	r.PassEnaW = mPassEnaW
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -256,7 +256,7 @@ func (r *ReversiPlay) SetmPassEnaW(mPassEnaW int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmGameEndSts() int {
-	return r.mGameEndSts
+	return r.GameEndSts
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -269,7 +269,7 @@ func (r ReversiPlay) GetmGameEndSts() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmGameEndSts(mGameEndSts int) {
-	r.mGameEndSts = mGameEndSts
+	r.GameEndSts = mGameEndSts
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -281,7 +281,7 @@ func (r *ReversiPlay) SetmGameEndSts(mGameEndSts int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmPlayLock() int {
-	return r.mPlayLock
+	return r.PlayLock
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -294,7 +294,7 @@ func (r ReversiPlay) GetmPlayLock() int {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmPlayLock(mPlayLock int) {
-	r.mPlayLock = mPlayLock
+	r.PlayLock = mPlayLock
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -306,7 +306,7 @@ func (r *ReversiPlay) SetmPlayLock(mPlayLock int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmDelegate() *ReversiPlayDelegate {
-	return r.mDelegate
+	return r.Delegate
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -319,7 +319,7 @@ func (r ReversiPlay) GetmDelegate() *ReversiPlayDelegate {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmDelegate(mDelegate *ReversiPlayDelegate) {
-	r.mDelegate = mDelegate
+	r.Delegate = mDelegate
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -331,7 +331,7 @@ func (r *ReversiPlay) SetmDelegate(mDelegate *ReversiPlayDelegate) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r ReversiPlay) GetmCallbacks() *CallbacksJson {
-	return r.mCallbacks
+	return r.Callbacks
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -344,7 +344,7 @@ func (r ReversiPlay) GetmCallbacks() *CallbacksJson {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) SetmCallbacks(mCallbacks *CallbacksJson) {
-	r.mCallbacks = mCallbacks
+	r.Callbacks = mCallbacks
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -360,18 +360,18 @@ func (r *ReversiPlay) SetmCallbacks(mCallbacks *CallbacksJson) {
 func (r *ReversiPlay) ReversiPlay(y int, x int) {
 	update := 0
 	cpuEna := 0
-	tmpCol := r.mCurColor
+	tmpCol := r.CurColor
 	pass := 0
-	if r.mPlayLock == 1 {
+	if r.PlayLock == 1 {
 		return
 	}
-	r.mPlayLock = 1
-	if r.mReversi.GetColorEna(r.mCurColor) == 0 {
-		if r.mReversi.SetMasuSts(r.mCurColor, y, x) == 0 {
-			if r.mSetting.GetmType() == DEF_TYPE_HARD {
-				r.mReversi.AnalysisReversi(r.mPassEnaB, r.mPassEnaW)
+	r.PlayLock = 1
+	if r.Reversi.GetColorEna(r.CurColor) == 0 {
+		if r.Reversi.SetMasuSts(r.CurColor, y, x) == 0 {
+			if r.Setting.GetmType() == DEF_TYPE_HARD {
+				r.Reversi.AnalysisReversi(r.PassEnaB, r.PassEnaW)
 			}
-			if r.mSetting.GetmAssist() == DEF_ASSIST_ON {
+			if r.Setting.GetmAssist() == DEF_ASSIST_ON {
 				// *** メッセージ送信 *** //
 				r.ExecMessage(LC_MSG_ERASE_INFO_ALL, nil)
 			}
@@ -379,21 +379,21 @@ func (r *ReversiPlay) ReversiPlay(y int, x int) {
 			r.SendDrawMsg(y, x)
 			// その他コマ描画
 			r.DrawUpdate(DEF_ASSIST_OFF)
-			if r.mReversi.GetGameEndSts() == 0 {
+			if r.Reversi.GetGameEndSts() == 0 {
 				if tmpCol == REVERSI_STS_BLACK {
 					tmpCol = REVERSI_STS_WHITE
 				} else {
 					tmpCol = REVERSI_STS_BLACK
 				}
-				if r.mReversi.GetColorEna(tmpCol) == 0 {
-					if r.mSetting.GetmMode() == DEF_MODE_ONE {
+				if r.Reversi.GetColorEna(tmpCol) == 0 {
+					if r.Setting.GetmMode() == DEF_MODE_ONE {
 						// CPU対戦
 						cpuEna = 1
 					} else {
 						// 二人対戦
-						r.mCurColor = tmpCol
+						r.CurColor = tmpCol
 						// 次のプレイヤーコマ描画
-						r.DrawUpdate(r.mSetting.GetmAssist())
+						r.DrawUpdate(r.Setting.GetmAssist())
 					}
 				} else {
 					// *** パスメッセージ *** //
@@ -410,20 +410,20 @@ func (r *ReversiPlay) ReversiPlay(y int, x int) {
 			r.ViewMsgDlgLocal("エラー", "そのマスには置けません。")
 		}
 	} else {
-		if r.mReversi.GetGameEndSts() == 0 {
+		if r.Reversi.GetGameEndSts() == 0 {
 			if tmpCol == REVERSI_STS_BLACK {
 				tmpCol = REVERSI_STS_WHITE
 			} else {
 				tmpCol = REVERSI_STS_BLACK
 			}
-			if r.mReversi.GetColorEna(tmpCol) == 0 {
-				if r.mSetting.GetmMode() == DEF_MODE_ONE {
+			if r.Reversi.GetColorEna(tmpCol) == 0 {
+				if r.Setting.GetmMode() == DEF_MODE_ONE {
 					// CPU対戦
 					update = 1
 					cpuEna = 1
 				} else {
 					// 二人対戦
-					r.mCurColor = tmpCol
+					r.CurColor = tmpCol
 				}
 			} else {
 				// *** パスメッセージ *** //
@@ -436,9 +436,9 @@ func (r *ReversiPlay) ReversiPlay(y int, x int) {
 		}
 	}
 	if pass == 1 {
-		if r.mSetting.GetmMode() == DEF_MODE_ONE {
+		if r.Setting.GetmMode() == DEF_MODE_ONE {
 			// CPU対戦
-			if r.mSetting.GetmAssist() == DEF_ASSIST_ON {
+			if r.Setting.GetmAssist() == DEF_ASSIST_ON {
 				// *** メッセージ送信 *** //
 				r.ExecMessage(LC_MSG_DRAW_INFO_ALL, nil)
 			}
@@ -447,13 +447,13 @@ func (r *ReversiPlay) ReversiPlay(y int, x int) {
 	if update == 1 {
 		waitTime := 0
 		if cpuEna == 1 {
-			waitTime = r.mSetting.GetmPlayCpuInterVal()
+			waitTime = r.Setting.GetmPlayCpuInterVal()
 		}
 		r.WaitLocal(waitTime)
 		r.ReversiPlaySub(cpuEna, tmpCol)
-		r.mPlayLock = 0
+		r.PlayLock = 0
 	} else {
-		r.mPlayLock = 0
+		r.PlayLock = 0
 	}
 }
 
@@ -472,10 +472,10 @@ func (r *ReversiPlay) ReversiPlaySub(cpuEna int, tmpCol int) {
 		ret := r.ReversiPlayCpu(tmpCol, cpuEna)
 		cpuEna = 0
 		if ret == 1 {
-			if r.mReversi.GetGameEndSts() == 0 {
-				if r.mReversi.GetColorEna(r.mCurColor) != 0 {
+			if r.Reversi.GetGameEndSts() == 0 {
+				if r.Reversi.GetColorEna(r.CurColor) != 0 {
 					// *** パスメッセージ *** //
-					r.ReversiPlayPass(r.mCurColor)
+					r.ReversiPlayPass(r.CurColor)
 					cpuEna = 1
 				}
 			} else {
@@ -498,11 +498,11 @@ func (r *ReversiPlay) ReversiPlaySub(cpuEna int, tmpCol int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) ReversiPlayEnd() {
-	if r.mGameEndSts == 0 {
-		r.mGameEndSts = 1
+	if r.GameEndSts == 0 {
+		r.GameEndSts = 1
 		// 終了アニメ実行
 		waitTime := r.GameEndAnimExec()
-		r.mPlayLock = 1
+		r.PlayLock = 1
 		r.WaitLocal(waitTime)
 		// *** ゲーム終了メッセージ *** //
 		var tmpMsg1 string
@@ -510,20 +510,20 @@ func (r *ReversiPlay) ReversiPlayEnd() {
 		var msgStr string
 		var blk int
 		var whi int
-		blk = r.mReversi.GetBetCnt(REVERSI_STS_BLACK)
-		whi = r.mReversi.GetBetCnt(REVERSI_STS_WHITE)
+		blk = r.Reversi.GetBetCnt(REVERSI_STS_BLACK)
+		whi = r.Reversi.GetBetCnt(REVERSI_STS_WHITE)
 		tmpMsg1 = "プレイヤー1 = " + strconv.Itoa(blk) + " プレイヤー2 = " + strconv.Itoa(whi)
-		if r.mSetting.GetmMode() == DEF_MODE_ONE {
+		if r.Setting.GetmMode() == DEF_MODE_ONE {
 			if whi == blk {
 				tmpMsg2 = "引き分けです。"
 			} else if whi < blk {
-				if r.mCurColor == REVERSI_STS_BLACK {
+				if r.CurColor == REVERSI_STS_BLACK {
 					tmpMsg2 = "あなたの勝ちです。"
 				} else {
 					tmpMsg2 = "あなたの負けです。"
 				}
 			} else {
-				if r.mCurColor == REVERSI_STS_WHITE {
+				if r.CurColor == REVERSI_STS_WHITE {
 					tmpMsg2 = "あなたの勝ちです。"
 				} else {
 					tmpMsg2 = "あなたの負けです。"
@@ -540,7 +540,7 @@ func (r *ReversiPlay) ReversiPlayEnd() {
 		}
 		msgStr = tmpMsg1 + tmpMsg2
 		r.ViewMsgDlgLocal("ゲーム終了", msgStr)
-		if r.mSetting.GetmEndAnim() == DEF_END_ANIM_ON {
+		if r.Setting.GetmEndAnim() == DEF_END_ANIM_ON {
 			// *** メッセージ送信 *** //
 			r.ExecMessage(LC_MSG_CUR_COL, nil)
 			// *** メッセージ送信 *** //
@@ -560,8 +560,8 @@ func (r *ReversiPlay) ReversiPlayEnd() {
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) ReversiPlayPass(color int) {
 	// *** パスメッセージ *** //
-	if r.mSetting.GetmMode() == DEF_MODE_ONE {
-		if color == r.mCurColor {
+	if r.Setting.GetmMode() == DEF_MODE_ONE {
+		if color == r.CurColor {
 			r.ViewMsgDlgLocal("", "あなたはパスです。")
 		} else {
 			r.ViewMsgDlgLocal("", "CPUはパスです。")
@@ -593,12 +593,12 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 		if cpuEna == 1 {
 			cpuEna = 0
 			// *** CPU対戦 *** //
-			pCnt := r.mReversi.GetPointCnt(color)
-			pInfo := r.mReversi.GetPoint(color, rand.Intn(pCnt))
+			pCnt := r.Reversi.GetPointCnt(color)
+			pInfo := r.Reversi.GetPoint(color, rand.Intn(pCnt))
 			if pInfo != nil {
 				setY = pInfo.GetY()
 				setX = pInfo.GetX()
-				if r.mSetting.GetmType() != DEF_TYPE_EASY {
+				if r.Setting.GetmType() != DEF_TYPE_EASY {
 					// 強いコンピューター
 					cpuflg0 := 0
 					cpuflg1 := 0
@@ -611,7 +611,7 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 					rcnt1 := 0
 					rcnt2 := 0
 					kadocnt := 0
-					loop := r.mSetting.GetmMasuCnt() * r.mSetting.GetmMasuCnt()
+					loop := r.Setting.GetmMasuCnt() * r.Setting.GetmMasuCnt()
 					pcnt := 0
 					passCnt := 0
 					othColor := 0
@@ -621,64 +621,64 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 						othColor = REVERSI_STS_BLACK
 					}
 					// 対戦相手のコマ数
-					othBet := r.mReversi.GetBetCnt(othColor)
+					othBet := r.Reversi.GetBetCnt(othColor)
 					// 自分のコマ数
-					ownBet := r.mReversi.GetBetCnt(color)
+					ownBet := r.Reversi.GetBetCnt(color)
 					endZone := 0
 					if (loop - (othBet + ownBet)) <= 16 {
 						// ゲーム終盤フラグON
 						endZone = 1
 					}
 					for i := 0; i < loop; i++ {
-						r.mCpu[i].SetX(0)
-						r.mCpu[i].SetY(0)
-						r.mEdge[i].SetX(0)
-						r.mEdge[i].SetY(0)
+						r.Cpu[i].SetX(0)
+						r.Cpu[i].SetY(0)
+						r.Edge[i].SetX(0)
+						r.Edge[i].SetY(0)
 					}
 
-					for i := 0; i < r.mSetting.GetmMasuCnt(); i++ {
-						for j := 0; j < r.mSetting.GetmMasuCnt(); j++ {
-							if r.mReversi.GetMasuStsEna(color, i, j) != 0 {
+					for i := 0; i < r.Setting.GetmMasuCnt(); i++ {
+						for j := 0; j < r.Setting.GetmMasuCnt(); j++ {
+							if r.Reversi.GetMasuStsEna(color, i, j) != 0 {
 								// *** 角の一つ手前なら別のとこに格納 *** //
-								if r.mReversi.GetEdgeSideOne(i, j) == 0 {
-									r.mEdge[kadocnt].SetX(j)
-									r.mEdge[kadocnt].SetY(i)
+								if r.Reversi.GetEdgeSideOne(i, j) == 0 {
+									r.Edge[kadocnt].SetX(j)
+									r.Edge[kadocnt].SetY(i)
 									kadocnt++
 								} else {
-									r.mCpu[rcnt1].SetX(j)
-									r.mCpu[rcnt1].SetY(i)
+									r.Cpu[rcnt1].SetX(j)
+									r.Cpu[rcnt1].SetY(i)
 									rcnt1++
 								}
-								if r.mSetting.GetmType() == DEF_TYPE_NOR {
+								if r.Setting.GetmType() == DEF_TYPE_NOR {
 									// *** 角に置けるなら優先的にとらせるため場所を記憶させる *** //
-									if r.mReversi.GetEdgeSideZero(i, j) == 0 {
+									if r.Reversi.GetEdgeSideZero(i, j) == 0 {
 										cpuflg1 = 1
 										rcnt2 = (rcnt1 - 1)
 									}
 									// *** 角の二つ手前も優先的にとらせるため場所を記憶させる *** //
 									if cpuflg1 == 0 {
-										if r.mReversi.GetEdgeSideTwo(i, j) == 0 {
+										if r.Reversi.GetEdgeSideTwo(i, j) == 0 {
 											cpuflg2 = 1
 											rcnt2 = (rcnt1 - 1)
 										}
 									}
 									// *** 角の三つ手前も優先的にとらせるため場所を記憶させる *** //
 									if cpuflg1 == 0 && cpuflg2 == 0 {
-										if r.mReversi.GetEdgeSideThree(i, j) == 0 {
+										if r.Reversi.GetEdgeSideThree(i, j) == 0 {
 											cpuflg0 = 1
 											rcnt2 = (rcnt1 - 1)
 										}
 									}
 								}
 								// *** パーフェクトゲームなら *** //
-								if r.mReversi.GetMasuStsCnt(color, i, j) == othBet {
+								if r.Reversi.GetMasuStsCnt(color, i, j) == othBet {
 									setY = i
 									setX = j
 									pcnt = 1
 								}
 								// *** 相手をパスさせるなら *** //
 								if pcnt == 0 {
-									if r.mReversi.GetPassEna(color, i, j) != 0 {
+									if r.Reversi.GetPassEna(color, i, j) != 0 {
 										setY = i
 										setX = j
 										passCnt = 1
@@ -696,8 +696,8 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 						var tmpAnz *ReversiAnz
 						if rcnt1 != 0 {
 							for i := 0; i < rcnt1; i++ {
-								if r.mSetting.GetmType() == DEF_TYPE_HARD {
-									tmpAnz = r.mReversi.GetPointAnz(color, r.mCpu[i].GetY(), r.mCpu[i].GetX())
+								if r.Setting.GetmType() == DEF_TYPE_HARD {
+									tmpAnz = r.Reversi.GetPointAnz(color, r.Cpu[i].GetY(), r.Cpu[i].GetX())
 									if tmpAnz != nil {
 										if badPoint == -1 {
 											badPoint = tmpAnz.GetBadPoint()
@@ -729,7 +729,7 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 										}
 									}
 								}
-								if r.mReversi.GetMasuStsEna(color, r.mCpu[i].GetY(), r.mCpu[i].GetX()) == 2 {
+								if r.Reversi.GetMasuStsEna(color, r.Cpu[i].GetY(), r.Cpu[i].GetX()) == 2 {
 									mem = i
 								}
 							}
@@ -751,8 +751,8 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 							}
 						} else if kadocnt != 0 {
 							for i := 0; i < kadocnt; i++ {
-								if r.mSetting.GetmType() == DEF_TYPE_HARD {
-									tmpAnz = r.mReversi.GetPointAnz(color, r.mEdge[i].GetY(), r.mEdge[i].GetX())
+								if r.Setting.GetmType() == DEF_TYPE_HARD {
+									tmpAnz = r.Reversi.GetPointAnz(color, r.Edge[i].GetY(), r.Edge[i].GetX())
 									if tmpAnz != nil {
 										if badPoint == -1 {
 											badPoint = tmpAnz.GetBadPoint()
@@ -784,7 +784,7 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 										}
 									}
 								}
-								if r.mReversi.GetMasuStsEna(color, r.mEdge[i].GetY(), r.mEdge[i].GetX()) == 2 {
+								if r.Reversi.GetMasuStsEna(color, r.Edge[i].GetY(), r.Edge[i].GetX()) == 2 {
 									mem = i
 								}
 							}
@@ -806,7 +806,7 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 							}
 							// *** 置いても平気な角があればそこに置く*** //
 							for i := 0; i < kadocnt; i++ {
-								if r.mReversi.CheckEdge(color, r.mEdge[i].GetY(), r.mEdge[i].GetX()) != 0 {
+								if r.Reversi.CheckEdge(color, r.Edge[i].GetY(), r.Edge[i].GetX()) != 0 {
 									if cpuflg0 == 0 && cpuflg1 == 0 && cpuflg2 == 0 {
 										cpuflg3 = 1
 										rcnt2 = i
@@ -818,17 +818,17 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 							rcnt2 = mem
 						}
 						if rcnt1 != 0 {
-							setY = r.mCpu[rcnt2].GetY()
-							setX = r.mCpu[rcnt2].GetX()
+							setY = r.Cpu[rcnt2].GetY()
+							setX = r.Cpu[rcnt2].GetX()
 						} else if kadocnt != 0 {
-							setY = r.mEdge[rcnt2].GetY()
-							setX = r.mEdge[rcnt2].GetX()
+							setY = r.Edge[rcnt2].GetY()
+							setX = r.Edge[rcnt2].GetX()
 						}
 					}
 				}
-				if r.mReversi.SetMasuSts(color, setY, setX) == 0 {
-					if r.mSetting.GetmType() == DEF_TYPE_HARD {
-						r.mReversi.AnalysisReversi(r.mPassEnaB, r.mPassEnaW)
+				if r.Reversi.SetMasuSts(color, setY, setX) == 0 {
+					if r.Setting.GetmType() == DEF_TYPE_HARD {
+						r.Reversi.AnalysisReversi(r.PassEnaB, r.PassEnaW)
 					}
 					// 描画
 					r.SendDrawMsg(setY, setX)
@@ -841,7 +841,7 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 	}
 	if update == 1 {
 		r.DrawUpdate(DEF_ASSIST_OFF)
-		if r.mSetting.GetmAssist() == DEF_ASSIST_ON {
+		if r.Setting.GetmAssist() == DEF_ASSIST_ON {
 			// *** メッセージ送信 *** //
 			r.ExecMessage(LC_MSG_DRAW_INFO_ALL, nil)
 		}
@@ -860,16 +860,16 @@ func (r *ReversiPlay) ReversiPlayCpu(color int, cpuEna int) int {
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) DrawUpdate(assist int) {
 	if assist == DEF_ASSIST_ON {
-		for i := 0; i < r.mSetting.GetmMasuCnt(); i++ {
-			for j := 0; j < r.mSetting.GetmMasuCnt(); j++ {
+		for i := 0; i < r.Setting.GetmMasuCnt(); i++ {
+			for j := 0; j < r.Setting.GetmMasuCnt(); j++ {
 				r.SendDrawInfoMsg(i, j)
 			}
 		}
 	}
-	waitTime := r.mSetting.GetmPlayDrawInterVal()
-	for i := 0; i < r.mSetting.GetmMasuCnt(); i++ {
-		for j := 0; j < r.mSetting.GetmMasuCnt(); j++ {
-			if r.mReversi.GetMasuSts(i, j) != r.mReversi.GetMasuStsOld(i, j) {
+	waitTime := r.Setting.GetmPlayDrawInterVal()
+	for i := 0; i < r.Setting.GetmMasuCnt(); i++ {
+		for j := 0; j < r.Setting.GetmMasuCnt(); j++ {
+			if r.Reversi.GetMasuSts(i, j) != r.Reversi.GetMasuStsOld(i, j) {
 				r.WaitLocal(waitTime)
 				r.SendDrawMsg(i, j)
 			}
@@ -915,39 +915,39 @@ func (r *ReversiPlay) DrawUpdateForcibly(assist int) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) Reset() {
-	r.mPassEnaB = 0
-	r.mPassEnaW = 0
-	if r.mSetting.GetmGameSpd() == DEF_GAME_SPD_FAST {
-		r.mSetting.SetmPlayDrawInterVal(DEF_GAME_SPD_FAST_VAL) // 描画のインターバル(msec)
-		r.mSetting.SetmPlayCpuInterVal(DEF_GAME_SPD_FAST_VAL2) // CPU対戦時のインターバル(msec)
-	} else if r.mSetting.GetmGameSpd() == DEF_GAME_SPD_MID {
-		r.mSetting.SetmPlayDrawInterVal(DEF_GAME_SPD_MID_VAL) // 描画のインターバル(msec)
-		r.mSetting.SetmPlayCpuInterVal(DEF_GAME_SPD_MID_VAL2) // CPU対戦時のインターバル(msec)
+	r.PassEnaB = 0
+	r.PassEnaW = 0
+	if r.Setting.GetmGameSpd() == DEF_GAME_SPD_FAST {
+		r.Setting.SetmPlayDrawInterVal(DEF_GAME_SPD_FAST_VAL) // 描画のインターバル(msec)
+		r.Setting.SetmPlayCpuInterVal(DEF_GAME_SPD_FAST_VAL2) // CPU対戦時のインターバル(msec)
+	} else if r.Setting.GetmGameSpd() == DEF_GAME_SPD_MID {
+		r.Setting.SetmPlayDrawInterVal(DEF_GAME_SPD_MID_VAL) // 描画のインターバル(msec)
+		r.Setting.SetmPlayCpuInterVal(DEF_GAME_SPD_MID_VAL2) // CPU対戦時のインターバル(msec)
 	} else {
-		r.mSetting.SetmPlayDrawInterVal(DEF_GAME_SPD_SLOW_VAL) // 描画のインターバル(msec)
-		r.mSetting.SetmPlayCpuInterVal(DEF_GAME_SPD_SLOW_VAL2) // CPU対戦時のインターバル(msec)
+		r.Setting.SetmPlayDrawInterVal(DEF_GAME_SPD_SLOW_VAL) // 描画のインターバル(msec)
+		r.Setting.SetmPlayCpuInterVal(DEF_GAME_SPD_SLOW_VAL2) // CPU対戦時のインターバル(msec)
 	}
-	r.mCurColor = r.mSetting.GetmPlayer()
-	if r.mSetting.GetmMode() == DEF_MODE_TWO {
-		r.mCurColor = REVERSI_STS_BLACK
+	r.CurColor = r.Setting.GetmPlayer()
+	if r.Setting.GetmMode() == DEF_MODE_TWO {
+		r.CurColor = REVERSI_STS_BLACK
 	}
-	r.mReversi.SetMasuCnt(r.mSetting.GetmMasuCnt()) // マスの数設定
-	r.mReversi.Reset()
-	if r.mSetting.GetmMode() == DEF_MODE_ONE {
-		if r.mCurColor == REVERSI_STS_WHITE {
-			pCnt := r.mReversi.GetPointCnt(REVERSI_STS_BLACK)
-			pInfo := r.mReversi.GetPoint(REVERSI_STS_BLACK, rand.Intn(pCnt))
+	r.Reversi.SetMasuCnt(r.Setting.GetmMasuCnt()) // マスの数設定
+	r.Reversi.Reset()
+	if r.Setting.GetmMode() == DEF_MODE_ONE {
+		if r.CurColor == REVERSI_STS_WHITE {
+			pCnt := r.Reversi.GetPointCnt(REVERSI_STS_BLACK)
+			pInfo := r.Reversi.GetPoint(REVERSI_STS_BLACK, rand.Intn(pCnt))
 			if pInfo != nil {
-				r.mReversi.SetMasuSts(REVERSI_STS_BLACK, pInfo.GetY(), pInfo.GetX())
-				if r.mSetting.GetmType() == DEF_TYPE_HARD {
-					r.mReversi.AnalysisReversi(r.mPassEnaB, r.mPassEnaW)
+				r.Reversi.SetMasuSts(REVERSI_STS_BLACK, pInfo.GetY(), pInfo.GetX())
+				if r.Setting.GetmType() == DEF_TYPE_HARD {
+					r.Reversi.AnalysisReversi(r.PassEnaB, r.PassEnaW)
 				}
 			}
 		}
 	}
-	r.mPlayLock = 1
-	r.mGameEndSts = 0
-	r.DrawUpdateForcibly(r.mSetting.GetmAssist())
+	r.PlayLock = 1
+	r.GameEndSts = 0
+	r.DrawUpdateForcibly(r.Setting.GetmAssist())
 	// *** 終了通知 *** //
 	// *** メッセージ送信 *** //
 	r.ExecMessage(LC_MSG_DRAW_END, nil)
@@ -965,19 +965,19 @@ func (r *ReversiPlay) GameEndAnimExec() int {
 	var bCnt int
 	var wCnt int
 	ret := 0
-	if r.mSetting.GetmEndAnim() == DEF_END_ANIM_ON {
-		bCnt = r.mReversi.GetBetCnt(REVERSI_STS_BLACK)
-		wCnt = r.mReversi.GetBetCnt(REVERSI_STS_WHITE)
+	if r.Setting.GetmEndAnim() == DEF_END_ANIM_ON {
+		bCnt = r.Reversi.GetBetCnt(REVERSI_STS_BLACK)
+		wCnt = r.Reversi.GetBetCnt(REVERSI_STS_WHITE)
 		// *** 色、コマ数表示消去 *** //
 		// *** メッセージ送信 *** //
 		r.ExecMessage(LC_MSG_CUR_COL_ERASE, nil)
 		// *** メッセージ送信 *** //
 		r.ExecMessage(LC_MSG_CUR_STS_ERASE, nil)
-		r.WaitLocal(r.mSetting.GetmEndInterVal())
+		r.WaitLocal(r.Setting.GetmEndInterVal())
 		// *** マス消去 *** //
-		for i := 0; i < r.mSetting.GetmMasuCnt(); i++ {
-			for j := 0; j < r.mSetting.GetmMasuCnt(); j++ {
-				r.mReversi.SetMasuStsForcibly(REVERSI_STS_NONE, i, j)
+		for i := 0; i < r.Setting.GetmMasuCnt(); i++ {
+			for j := 0; j < r.Setting.GetmMasuCnt(); j++ {
+				r.Reversi.SetMasuStsForcibly(REVERSI_STS_NONE, i, j)
 			}
 		}
 		// *** メッセージ送信 *** //
@@ -987,26 +987,26 @@ func (r *ReversiPlay) GameEndAnimExec() int {
 		wCnt2 := 0
 		bEnd := 0
 		wEnd := 0
-		for i := 0; i < r.mSetting.GetmMasuCnt(); i++ {
-			for j := 0; j < r.mSetting.GetmMasuCnt(); j++ {
+		for i := 0; i < r.Setting.GetmMasuCnt(); i++ {
+			for j := 0; j < r.Setting.GetmMasuCnt(); j++ {
 				if bCnt2 < bCnt {
 					bCnt2++
-					r.mReversi.SetMasuStsForcibly(REVERSI_STS_BLACK, i, j)
+					r.Reversi.SetMasuStsForcibly(REVERSI_STS_BLACK, i, j)
 					r.SendDrawMsg(i, j)
 				} else {
 					bEnd = 1
 				}
 				if wCnt2 < wCnt {
 					wCnt2++
-					r.mReversi.SetMasuStsForcibly(REVERSI_STS_WHITE, (r.mSetting.GetmMasuCnt()-1)-i, (r.mSetting.GetmMasuCnt()-1)-j)
-					r.SendDrawMsg((r.mSetting.GetmMasuCnt()-1)-i, (r.mSetting.GetmMasuCnt()-1)-j)
+					r.Reversi.SetMasuStsForcibly(REVERSI_STS_WHITE, (r.Setting.GetmMasuCnt()-1)-i, (r.Setting.GetmMasuCnt()-1)-j)
+					r.SendDrawMsg((r.Setting.GetmMasuCnt()-1)-i, (r.Setting.GetmMasuCnt()-1)-j)
 				} else {
 					wEnd = 1
 				}
 				if bEnd == 1 && wEnd == 1 {
 					break
 				} else {
-					r.WaitLocal(r.mSetting.GetmEndDrawInterVal())
+					r.WaitLocal(r.Setting.GetmEndDrawInterVal())
 				}
 			}
 		}
@@ -1067,70 +1067,70 @@ func (r *ReversiPlay) ExecMessage(what int, msgPoint *ReversiPoint) {
 	var dCnt int
 	if what == LC_MSG_DRAW {
 		// *** マス描画 *** //
-		dMode = r.mReversi.GetMasuSts(msgPoint.GetY(), msgPoint.GetX())
-		dBack = r.mReversi.GetMasuStsEna(r.mCurColor, msgPoint.GetY(), msgPoint.GetX())
-		dCnt = r.mReversi.GetMasuStsCnt(r.mCurColor, msgPoint.GetY(), msgPoint.GetX())
+		dMode = r.Reversi.GetMasuSts(msgPoint.GetY(), msgPoint.GetX())
+		dBack = r.Reversi.GetMasuStsEna(r.CurColor, msgPoint.GetY(), msgPoint.GetX())
+		dCnt = r.Reversi.GetMasuStsCnt(r.CurColor, msgPoint.GetY(), msgPoint.GetX())
 		r.DrawSingleLocal(msgPoint.GetY(), msgPoint.GetX(), dMode, dBack, strconv.Itoa(dCnt))
 	} else if what == LC_MSG_ERASE {
 		// *** マス消去 *** //
 		r.DrawSingleLocal(msgPoint.GetY(), msgPoint.GetX(), 0, 0, "0")
 	} else if what == LC_MSG_DRAW_INFO {
 		// *** マス情報描画 *** //
-		dMode = r.mReversi.GetMasuSts(msgPoint.GetY(), msgPoint.GetX())
-		dBack = r.mReversi.GetMasuStsEna(r.mCurColor, msgPoint.GetY(), msgPoint.GetX())
-		dCnt = r.mReversi.GetMasuStsCnt(r.mCurColor, msgPoint.GetY(), msgPoint.GetX())
+		dMode = r.Reversi.GetMasuSts(msgPoint.GetY(), msgPoint.GetX())
+		dBack = r.Reversi.GetMasuStsEna(r.CurColor, msgPoint.GetY(), msgPoint.GetX())
+		dCnt = r.Reversi.GetMasuStsCnt(r.CurColor, msgPoint.GetY(), msgPoint.GetX())
 		r.DrawSingleLocal(msgPoint.GetY(), msgPoint.GetX(), dMode, dBack, strconv.Itoa(dCnt))
 	} else if what == LC_MSG_ERASE_INFO {
 		// *** マス情報消去 *** //
-		dMode = r.mReversi.GetMasuSts(msgPoint.GetY(), msgPoint.GetX())
+		dMode = r.Reversi.GetMasuSts(msgPoint.GetY(), msgPoint.GetX())
 		r.DrawSingleLocal(msgPoint.GetY(), msgPoint.GetX(), dMode, 0, "0")
 	} else if what == LC_MSG_DRAW_ALL {
 		// *** 全マス描画 *** //
-		for i := 0; i < r.mSetting.GetmMasuCnt(); i++ {
-			for j := 0; j < r.mSetting.GetmMasuCnt(); j++ {
-				dMode = r.mReversi.GetMasuSts(i, j)
-				dBack = r.mReversi.GetMasuStsEna(r.mCurColor, i, j)
-				dCnt = r.mReversi.GetMasuStsCnt(r.mCurColor, i, j)
+		for i := 0; i < r.Setting.GetmMasuCnt(); i++ {
+			for j := 0; j < r.Setting.GetmMasuCnt(); j++ {
+				dMode = r.Reversi.GetMasuSts(i, j)
+				dBack = r.Reversi.GetMasuStsEna(r.CurColor, i, j)
+				dCnt = r.Reversi.GetMasuStsCnt(r.CurColor, i, j)
 				r.DrawSingleLocal(i, j, dMode, dBack, strconv.Itoa(dCnt))
 			}
 		}
 	} else if what == LC_MSG_ERASE_ALL {
 		// *** 全マス消去 *** //
-		for i := 0; i < r.mSetting.GetmMasuCnt(); i++ {
-			for j := 0; j < r.mSetting.GetmMasuCnt(); j++ {
+		for i := 0; i < r.Setting.GetmMasuCnt(); i++ {
+			for j := 0; j < r.Setting.GetmMasuCnt(); j++ {
 				r.DrawSingleLocal(i, j, 0, 0, "0")
 			}
 		}
 	} else if what == LC_MSG_DRAW_INFO_ALL {
 		// *** 全マス情報描画 *** //
-		for i := 0; i < r.mSetting.GetmMasuCnt(); i++ {
-			for j := 0; j < r.mSetting.GetmMasuCnt(); j++ {
-				dMode = r.mReversi.GetMasuSts(i, j)
-				dBack = r.mReversi.GetMasuStsEna(r.mCurColor, i, j)
-				dCnt = r.mReversi.GetMasuStsCnt(r.mCurColor, i, j)
+		for i := 0; i < r.Setting.GetmMasuCnt(); i++ {
+			for j := 0; j < r.Setting.GetmMasuCnt(); j++ {
+				dMode = r.Reversi.GetMasuSts(i, j)
+				dBack = r.Reversi.GetMasuStsEna(r.CurColor, i, j)
+				dCnt = r.Reversi.GetMasuStsCnt(r.CurColor, i, j)
 				r.DrawSingleLocal(i, j, dMode, dBack, strconv.Itoa(dCnt))
 			}
 		}
 	} else if what == LC_MSG_ERASE_INFO_ALL {
 		// *** 全マス情報消去 *** //
-		for i := 0; i < r.mSetting.GetmMasuCnt(); i++ {
-			for j := 0; j < r.mSetting.GetmMasuCnt(); j++ {
-				dMode = r.mReversi.GetMasuSts(i, j)
+		for i := 0; i < r.Setting.GetmMasuCnt(); i++ {
+			for j := 0; j < r.Setting.GetmMasuCnt(); j++ {
+				dMode = r.Reversi.GetMasuSts(i, j)
 				r.DrawSingleLocal(i, j, dMode, 0, "0")
 			}
 		}
 	} else if what == LC_MSG_DRAW_END {
-		r.mPlayLock = 0
+		r.PlayLock = 0
 	} else if what == LC_MSG_CUR_COL {
 		tmpStr := ""
-		if r.mSetting.GetmMode() == DEF_MODE_ONE {
-			if r.mCurColor == REVERSI_STS_BLACK {
+		if r.Setting.GetmMode() == DEF_MODE_ONE {
+			if r.CurColor == REVERSI_STS_BLACK {
 				tmpStr = "あなたはプレイヤー1です "
 			} else {
 				tmpStr = "あなたはプレイヤー2です "
 			}
 		} else {
-			if r.mCurColor == REVERSI_STS_BLACK {
+			if r.CurColor == REVERSI_STS_BLACK {
 				tmpStr = "プレイヤー1の番です "
 			} else {
 				tmpStr = "プレイヤー2の番です "
@@ -1140,7 +1140,7 @@ func (r *ReversiPlay) ExecMessage(what int, msgPoint *ReversiPoint) {
 	} else if what == LC_MSG_CUR_COL_ERASE {
 		r.CurColMsgLocal("")
 	} else if what == LC_MSG_CUR_STS {
-		tmpStr := "プレイヤー1 = " + strconv.Itoa(r.mReversi.GetBetCnt(REVERSI_STS_BLACK)) + " プレイヤー2 = " + strconv.Itoa(r.mReversi.GetBetCnt(REVERSI_STS_WHITE))
+		tmpStr := "プレイヤー1 = " + strconv.Itoa(r.Reversi.GetBetCnt(REVERSI_STS_BLACK)) + " プレイヤー2 = " + strconv.Itoa(r.Reversi.GetBetCnt(REVERSI_STS_WHITE))
 		r.CurStsMsgLocal(tmpStr)
 	} else if what == LC_MSG_CUR_STS_ERASE {
 		r.CurStsMsgLocal("")
@@ -1160,10 +1160,10 @@ func (r *ReversiPlay) ExecMessage(what int, msgPoint *ReversiPoint) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) ViewMsgDlgLocal(title string, msg string) {
-	if r.mDelegate != nil {
-		funcs := r.mCallbacks.GetFuncs()
-		funcs = append(funcs, r.mDelegate.ViewMsgDlg(title, msg))
-		r.mCallbacks.SetFuncs(funcs)
+	if r.Delegate != nil {
+		funcs := r.Callbacks.GetFuncs()
+		funcs = append(funcs, r.Delegate.ViewMsgDlg(title, msg))
+		r.Callbacks.SetFuncs(funcs)
 	}
 }
 
@@ -1181,10 +1181,10 @@ func (r *ReversiPlay) ViewMsgDlgLocal(title string, msg string) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) DrawSingleLocal(y int, x int, sts int, bk int, text string) {
-	if r.mDelegate != nil {
-		funcs := r.mCallbacks.GetFuncs()
-		funcs = append(funcs, r.mDelegate.DrawSingle(y, x, sts, bk, text))
-		r.mCallbacks.SetFuncs(funcs)
+	if r.Delegate != nil {
+		funcs := r.Callbacks.GetFuncs()
+		funcs = append(funcs, r.Delegate.DrawSingle(y, x, sts, bk, text))
+		r.Callbacks.SetFuncs(funcs)
 	}
 }
 
@@ -1198,10 +1198,10 @@ func (r *ReversiPlay) DrawSingleLocal(y int, x int, sts int, bk int, text string
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) CurColMsgLocal(text string) {
-	if r.mDelegate != nil {
-		funcs := r.mCallbacks.GetFuncs()
-		funcs = append(funcs, r.mDelegate.CurColMsg(text))
-		r.mCallbacks.SetFuncs(funcs)
+	if r.Delegate != nil {
+		funcs := r.Callbacks.GetFuncs()
+		funcs = append(funcs, r.Delegate.CurColMsg(text))
+		r.Callbacks.SetFuncs(funcs)
 	}
 }
 
@@ -1215,10 +1215,10 @@ func (r *ReversiPlay) CurColMsgLocal(text string) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) CurStsMsgLocal(text string) {
-	if r.mDelegate != nil {
-		funcs := r.mCallbacks.GetFuncs()
-		funcs = append(funcs, r.mDelegate.CurStsMsg(text))
-		r.mCallbacks.SetFuncs(funcs)
+	if r.Delegate != nil {
+		funcs := r.Callbacks.GetFuncs()
+		funcs = append(funcs, r.Delegate.CurStsMsg(text))
+		r.Callbacks.SetFuncs(funcs)
 	}
 }
 
@@ -1232,9 +1232,9 @@ func (r *ReversiPlay) CurStsMsgLocal(text string) {
 ///
 ////////////////////////////////////////////////////////////////////////////////
 func (r *ReversiPlay) WaitLocal(time int) {
-	if r.mDelegate != nil {
-		funcs := r.mCallbacks.GetFuncs()
-		funcs = append(funcs, r.mDelegate.Wait(time))
-		r.mCallbacks.SetFuncs(funcs)
+	if r.Delegate != nil {
+		funcs := r.Callbacks.GetFuncs()
+		funcs = append(funcs, r.Delegate.Wait(time))
+		r.Callbacks.SetFuncs(funcs)
 	}
 }

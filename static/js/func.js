@@ -129,14 +129,14 @@ $(document).ready(function() {
             theme: 'bootstrap'
         });
     });
-    //storage.clear();
+    storage.clear();
     var lReversiSetting = storage.getItem('appSetting');
     if (lReversiSetting != null) reversiSetting = JSON.parse(lReversiSetting);
     else storage.setItem('appSetting', JSON.stringify(reversiSetting));
-    if (reversiSetting.mPlayerColor1 === undefined) reversiSetting.mPlayerColor1 = '#000000';
-    if (reversiSetting.mPlayerColor2 === undefined) reversiSetting.mPlayerColor2 = '#ffffff';
-    if (reversiSetting.mBackGroundColor === undefined) reversiSetting.mBackGroundColor = '#00ff00';
-    if (reversiSetting.mBorderColor === undefined) reversiSetting.mBorderColor = '#000000';
+    if (reversiSetting.PlayerColor1 === undefined) reversiSetting.PlayerColor1 = '#000000';
+    if (reversiSetting.PlayerColor2 === undefined) reversiSetting.PlayerColor2 = '#ffffff';
+    if (reversiSetting.BackGroundColor === undefined) reversiSetting.BackGroundColor = '#00ff00';
+    if (reversiSetting.BorderColor === undefined) reversiSetting.BorderColor = '#000000';
     // *** 設定値をメニューに反映 *** //
     set_menu_ui();
     // *** マスを用意 *** //
@@ -157,47 +157,47 @@ $(document).ready(function() {
         reversiSettingBk = reversiSetting;
     });
     $('#appMenuModal').on('click', '.btn-primary', function() {
-        reversiSetting.mMode = $("#mMode .active input").val();
-        reversiSetting.mType = $("#mType .active input").val();
-        reversiSetting.mPlayer = $("#mPlayer .active input").val();
-        reversiSetting.mAssist = $("#mAssist .active input").val();
-        reversiSetting.mGameSpd = $("#mGameSpd .active input").val();
-        if (reversiSetting.mGameSpd == DEF_GAME_SPD_FAST) {
-            reversiSetting.mPlayCpuInterVal = DEF_GAME_SPD_FAST_VAL2;
-            reversiSetting.mPlayDrawInterVal = DEF_GAME_SPD_FAST_VAL;
-        } else if (reversiSetting.mGameSpd == DEF_GAME_SPD_MID) {
-            reversiSetting.mPlayCpuInterVal = DEF_GAME_SPD_MID_VAL2;
-            reversiSetting.mPlayDrawInterVal = DEF_GAME_SPD_MID_VAL;
-        } else if (reversiSetting.mGameSpd == DEF_GAME_SPD_SLOW) {
-            reversiSetting.mPlayCpuInterVal = DEF_GAME_SPD_SLOW_VAL2;
-            reversiSetting.mPlayDrawInterVal = DEF_GAME_SPD_SLOW_VAL;
+        reversiSetting.Mode = Number($("#mMode .active input").val());
+        reversiSetting.Type = Number($("#mType .active input").val());
+        reversiSetting.Player = Number($("#mPlayer .active input").val());
+        reversiSetting.Assist = Number($("#mAssist .active input").val());
+        reversiSetting.GameSpd = Number($("#mGameSpd .active input").val());
+        if (reversiSetting.GameSpd == DEF_GAME_SPD_FAST) {
+            reversiSetting.PlayCpuInterVal = DEF_GAME_SPD_FAST_VAL2;
+            reversiSetting.PlayDrawInterVal = DEF_GAME_SPD_FAST_VAL;
+        } else if (reversiSetting.GameSpd == DEF_GAME_SPD_MID) {
+            reversiSetting.PlayCpuInterVal = DEF_GAME_SPD_MID_VAL2;
+            reversiSetting.PlayDrawInterVal = DEF_GAME_SPD_MID_VAL;
+        } else if (reversiSetting.GameSpd == DEF_GAME_SPD_SLOW) {
+            reversiSetting.PlayCpuInterVal = DEF_GAME_SPD_SLOW_VAL2;
+            reversiSetting.PlayDrawInterVal = DEF_GAME_SPD_SLOW_VAL;
         }
-        reversiSetting.mEndAnim = $("#mEndAnim .active input").val();
-        reversiSetting.mMasuCntMenu = $("#mMasuCntMenu .active input").val();
-        if (reversiSetting.mMasuCntMenu == DEF_MASU_CNT_6) {
-            reversiSetting.mMasuCnt = DEF_MASU_CNT_6_VAL;
-        } else if (reversiSetting.mMasuCntMenu == DEF_MASU_CNT_8) {
-            reversiSetting.mMasuCnt = DEF_MASU_CNT_8_VAL;
-        } else if (reversiSetting.mMasuCntMenu == DEF_MASU_CNT_10) {
-            reversiSetting.mMasuCnt = DEF_MASU_CNT_10_VAL;
-        } else if (reversiSetting.mMasuCntMenu == DEF_MASU_CNT_12) {
-            reversiSetting.mMasuCnt = DEF_MASU_CNT_12_VAL;
-        } else if (reversiSetting.mMasuCntMenu == DEF_MASU_CNT_14) {
-            reversiSetting.mMasuCnt = DEF_MASU_CNT_14_VAL;
-        } else if (reversiSetting.mMasuCntMenu == DEF_MASU_CNT_16) {
-            reversiSetting.mMasuCnt = DEF_MASU_CNT_16_VAL;
+        reversiSetting.EndAnim = Number($("#mEndAnim .active input").val());
+        reversiSetting.MasuCntMenu = Number($("#mMasuCntMenu .active input").val());
+        if (reversiSetting.MasuCntMenu == DEF_MASU_CNT_6) {
+            reversiSetting.MasuCnt = DEF_MASU_CNT_6_VAL;
+        } else if (reversiSetting.MasuCntMenu == DEF_MASU_CNT_8) {
+            reversiSetting.MasuCnt = DEF_MASU_CNT_8_VAL;
+        } else if (reversiSetting.MasuCntMenu == DEF_MASU_CNT_10) {
+            reversiSetting.MasuCnt = DEF_MASU_CNT_10_VAL;
+        } else if (reversiSetting.MasuCntMenu == DEF_MASU_CNT_12) {
+            reversiSetting.MasuCnt = DEF_MASU_CNT_12_VAL;
+        } else if (reversiSetting.MasuCntMenu == DEF_MASU_CNT_14) {
+            reversiSetting.MasuCnt = DEF_MASU_CNT_14_VAL;
+        } else if (reversiSetting.MasuCntMenu == DEF_MASU_CNT_16) {
+            reversiSetting.MasuCnt = DEF_MASU_CNT_16_VAL;
         }
 
-        var oldTheme = reversiSetting.mTheme;
+        var oldTheme = reversiSetting.Theme;
         reversiSetting.mTheme = $("#mTheme .active input").val();
         $('head link[href=".\/css\/theme\/' + oldTheme + '\/bootstrap.min.css"]').remove();
-        var addEle = '<link href=".\/css\/theme\/' + reversiSetting.mTheme + '\/bootstrap.min.css" rel="stylesheet" media="screen">';
+        var addEle = '<link href=".\/css\/theme\/' + reversiSetting.Theme + '\/bootstrap.min.css" rel="stylesheet" media="screen">';
         $('head').append(addEle);
 
-        reversiSetting.mPlayerColor1 = $('#mPlayerColor1 input').val();
-        reversiSetting.mPlayerColor2 = $('#mPlayerColor2 input').val();
-        reversiSetting.mBackGroundColor = $('#mBackGroundColor input').val();
-        reversiSetting.mBorderColor = $('#mBorderColor input').val();
+        reversiSetting.PlayerColor1 = $('#mPlayerColor1 input').val();
+        reversiSetting.PlayerColor2 = $('#mPlayerColor2 input').val();
+        reversiSetting.BackGroundColor = $('#mBackGroundColor input').val();
+        reversiSetting.BorderColor = $('#mBorderColor input').val();
 
         storage.setItem('appSetting', JSON.stringify(reversiSetting));
         appInit();
@@ -297,25 +297,25 @@ function set_menu_ui() {
         $(this).removeClass('active');
     });
     var ele;
-    ele = $('#mMode input[value="' + Number(reversiSetting.mMode) + '"]').parent().addClass('active');
-    ele = $('#mType input[value="' + Number(reversiSetting.mType) + '"]').parent().addClass('active');
-    ele = $('#mPlayer input[value="' + Number(reversiSetting.mPlayer) + '"]').parent().addClass('active');
-    ele = $('#mAssist input[value="' + Number(reversiSetting.mAssist) + '"]').parent().addClass('active');
-    ele = $('#mGameSpd input[value="' + Number(reversiSetting.mGameSpd) + '"]').parent().addClass('active');
-    ele = $('#mEndAnim input[value="' + Number(reversiSetting.mEndAnim) + '"]').parent().addClass('active');
-    ele = $('#mMasuCntMenu input[value="' + Number(reversiSetting.mMasuCntMenu) + '"]').parent().addClass('active');
-    ele = $('#mTheme input[value="' + reversiSetting.mTheme + '"]').parent().addClass('active');
-    ele = $('#mPlayerColor1 input').attr('value', reversiSetting.mPlayerColor1);
-    ele = $('#mPlayerColor1 input').minicolors('value', reversiSetting.mPlayerColor1);
-    ele = $('#mPlayerColor2 input').attr('value', reversiSetting.mPlayerColor2);
-    ele = $('#mPlayerColor2 input').minicolors('value', reversiSetting.mPlayerColor2);
-    ele = $('#mBackGroundColor input').attr('value', reversiSetting.mBackGroundColor);
-    ele = $('#mBackGroundColor input').minicolors('value', reversiSetting.mBackGroundColor);
-    ele = $('#mBorderColor input').attr('value', reversiSetting.mBorderColor);
-    ele = $('#mBorderColor input').minicolors('value', reversiSetting.mBorderColor);
-    var oldTheme = reversiSetting.mTheme;
+    ele = $('#mMode input[value="' + Number(reversiSetting.Mode) + '"]').parent().addClass('active');
+    ele = $('#mType input[value="' + Number(reversiSetting.Type) + '"]').parent().addClass('active');
+    ele = $('#mPlayer input[value="' + Number(reversiSetting.Player) + '"]').parent().addClass('active');
+    ele = $('#mAssist input[value="' + Number(reversiSetting.Assist) + '"]').parent().addClass('active');
+    ele = $('#mGameSpd input[value="' + Number(reversiSetting.GameSpd) + '"]').parent().addClass('active');
+    ele = $('#mEndAnim input[value="' + Number(reversiSetting.EndAnim) + '"]').parent().addClass('active');
+    ele = $('#mMasuCntMenu input[value="' + Number(reversiSetting.MasuCntMenu) + '"]').parent().addClass('active');
+    ele = $('#mTheme input[value="' + reversiSetting.Theme + '"]').parent().addClass('active');
+    ele = $('#mPlayerColor1 input').attr('value', reversiSetting.PlayerColor1);
+    ele = $('#mPlayerColor1 input').minicolors('value', reversiSetting.PlayerColor1);
+    ele = $('#mPlayerColor2 input').attr('value', reversiSetting.PlayerColor2);
+    ele = $('#mPlayerColor2 input').minicolors('value', reversiSetting.PlayerColor2);
+    ele = $('#mBackGroundColor input').attr('value', reversiSetting.BackGroundColor);
+    ele = $('#mBackGroundColor input').minicolors('value', reversiSetting.BackGroundColor);
+    ele = $('#mBorderColor input').attr('value', reversiSetting.BorderColor);
+    ele = $('#mBorderColor input').minicolors('value', reversiSetting.BorderColor);
+    var oldTheme = reversiSetting.Theme;
     $('head link[href=".\/css\/theme\/' + oldTheme + '\/bootstrap.min.css"]').remove();
-    var addEle = '<link href=".\/css\/theme\/' + reversiSetting.mTheme + '\/bootstrap.min.css" rel="stylesheet" media="screen">';
+    var addEle = '<link href=".\/css\/theme\/' + reversiSetting.Theme + '\/bootstrap.min.css" rel="stylesheet" media="screen">';
     $('head').append(addEle);
 }
 
@@ -334,9 +334,9 @@ function set_masu_size_squer() {
         // *** 横幅の方が狭い *** //
         viewSize = (devWidth - devOffset);
     }
-    masuSize = (viewSize / reversiSetting.mMasuCnt);
-    $('.reversi_field').width((Math.ceil(masuSize * reversiSetting.mMasuCnt) + 1) + 'px');
-    $('.reversi_field').height((Math.ceil(masuSize * reversiSetting.mMasuCnt) + 1) + 'px');
+    masuSize = (viewSize / reversiSetting.MasuCnt);
+    $('.reversi_field').width((Math.ceil(masuSize * reversiSetting.MasuCnt) + 1) + 'px');
+    $('.reversi_field').height((Math.ceil(masuSize * reversiSetting.MasuCnt) + 1) + 'px');
     $('.reversi_field .square-wrapper').each(function() {
         $(this).css('width', masuSize + 'px');
         $(this).css('height', masuSize + 'px');
@@ -348,17 +348,17 @@ function set_masu_size_squer() {
 
 function appInit() {
     $('.reversi_field').empty();
-    for (var i = 0; i < reversiSetting.mMasuCnt; i++) {
+    for (var i = 0; i < reversiSetting.MasuCnt; i++) {
         var row = $('<div class="my_row"><\/div>');
         row.addClass('pos_row' + String(i));
         $('.reversi_field').append(row);
-        for (var j = 0; j < reversiSetting.mMasuCnt; j++) {
+        for (var j = 0; j < reversiSetting.MasuCnt; j++) {
             var ele = $('<div class="square-wrapper"><div class="spacer"><div class="content"><\/div><\/div><\/div>');
             ele.addClass('pos_x' + String(j));
             ele.addClass('pos_y' + String(i));
             ele.attr('data-x', String(j));
             ele.attr('data-y', String(i));
-            ele.css('border-color', reversiSetting.mBorderColor);
+            ele.css('border-color', reversiSetting.BorderColor);
             $('.pos_row' + String(i)).append(ele);
         }
     }
@@ -399,11 +399,11 @@ function drawSingle(y, x, sts, bk, text) {
     } else if (sts == REVERSI_STS_BLACK) {
         tgtEle2.removeClass('stone_white');
         tgtEle2.addClass('stone_black');
-        tgtEle2.css('background-color', reversiSetting.mPlayerColor1);
+        tgtEle2.css('background-color', reversiSetting.PlayerColor1);
     } else if (sts == REVERSI_STS_WHITE) {
         tgtEle2.addClass('stone_white');
         tgtEle2.removeClass('stone_black');
-        tgtEle2.css('background-color', reversiSetting.mPlayerColor2);
+        tgtEle2.css('background-color', reversiSetting.PlayerColor2);
     }
     // *** マスの状態変更 *** //
     var bkCol = reversiSetting.mBackGroundColor;
