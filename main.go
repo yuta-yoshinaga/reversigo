@@ -65,7 +65,9 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 	} else if function == "reversiPlay" {
 		y, _ := strconv.Atoi(r.FormValue("y"))
 		x, _ := strconv.Atoi(r.FormValue("x"))
-		rp.ReversiPlay(x, y)
+		fmt.Println(y)
+		fmt.Println(x)
+		rp.ReversiPlay(y, x)
 		res.SetAuth("[SUCCESS]")
 	}
 	session.Save(r, w)
@@ -74,11 +76,10 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 
 	// jsonエンコード
 	res.SetCallbacks(rp.GetmCallbacks())
-	outputJson, err := json.Marshal(*res)
+	outputJson, err := json.Marshal(res)
 	if err != nil {
 		panic(err)
 	}
-
 	fmt.Println(string(outputJson))
 	// jsonデータを出力
 	w.Write(outputJson)

@@ -68,6 +68,7 @@ func NewReversiPlay() *ReversiPlay {
 	r.mDelegate = nil
 	r.mCallbacks = nil
 	rand.Seed(time.Now().UnixNano())
+	r.Reset()
 	return r
 }
 

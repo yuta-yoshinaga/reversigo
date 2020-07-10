@@ -7,25 +7,25 @@ $(document).ready(function() {
         var wait_time = 0;
         Object.keys(obj).forEach(function(key) {
             console.log(obj[key]);
-            if (obj[key].func == "Wait"){
-                wait_time += Number(obj[key].param1);
+            if (obj[key].Function == "Wait") {
+                wait_time += Number(obj[key].Param1);
             }
-            setTimeout(function (param) {
-                if (param.func == "ViewMsgDlg") {
-                    viewMsgDlg(param.param1, param.param2);
-                } else if (param.func == "DrawSingle") {
-                    drawSingle(param.param1, param.param2, param.param3, param.param4, param.param5);
-                } else if (param.func == "CurColMsg") {
-                    curColMsg(param.param1);
-                } else if (param.func == "CurStsMsg") {
-                    curStsMsg(param.param1);
+            setTimeout(function(param) {
+                if (param.Function == "ViewMsgDlg") {
+                    viewMsgDlg(param.Param1, param.Param2);
+                } else if (param.Function == "DrawSingle") {
+                    drawSingle(param.Param1, param.Param2, param.Param3, param.Param4, param.Param5);
+                } else if (param.Function == "CurColMsg") {
+                    curColMsg(param.Param1);
+                } else if (param.Function == "CurStsMsg") {
+                    curStsMsg(param.Param1);
                 }
             }, wait_time, obj[key]);
         });
     }
 
     function setSetting(reversiSetting) {
-		var requestObj = $.stringify(reversiSetting);
+        var requestObj = $.stringify(reversiSetting);
         $.ajax({
             url: "./FrontController",
             type: 'POST',
@@ -42,7 +42,7 @@ $(document).ready(function() {
             // レスポンスデータはパースされた上でresponseに渡される
             console.log('done');
             console.log(response);
-            callbacks(response.callbacks.funcs);
+            callbacks(response.Callbacks.Funcs);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             // 失敗時処理
             console.log('fall');
@@ -67,7 +67,7 @@ $(document).ready(function() {
             // レスポンスデータはパースされた上でresponseに渡される
             console.log('done');
             console.log(response);
-            callbacks(response.callbacks.funcs);
+            callbacks(response.Callbacks.Funcs);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             // 失敗時処理
             console.log('fall');
@@ -94,7 +94,7 @@ $(document).ready(function() {
             // レスポンスデータはパースされた上でresponseに渡される
             console.log('done');
             console.log(response);
-            callbacks(response.callbacks.funcs);
+            callbacks(response.Callbacks.Funcs);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             // 失敗時処理
             console.log('fall');
