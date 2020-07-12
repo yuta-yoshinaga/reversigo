@@ -129,10 +129,10 @@ $(document).ready(function() {
             theme: 'bootstrap'
         });
     });
-    storage.clear();
-    var lReversiSetting = storage.getItem('appSetting');
+    // storage.clear();
+    var lReversiSetting = storage.getItem('appSetting-go');
     if (lReversiSetting != null) reversiSetting = JSON.parse(lReversiSetting);
-    else storage.setItem('appSetting', JSON.stringify(reversiSetting));
+    else storage.setItem('appSetting-go', JSON.stringify(reversiSetting));
     if (reversiSetting.PlayerColor1 === undefined) reversiSetting.PlayerColor1 = '#000000';
     if (reversiSetting.PlayerColor2 === undefined) reversiSetting.PlayerColor2 = '#ffffff';
     if (reversiSetting.BackGroundColor === undefined) reversiSetting.BackGroundColor = '#00ff00';
@@ -202,7 +202,7 @@ $(document).ready(function() {
         storage.setItem('appSetting', JSON.stringify(reversiSetting));
         appInit();
         setSetting(reversiSetting);
-        reset();
+        // reset();
         console.log(reversiSetting);
     });
     $('#appMenuModal').on('click', '.btn-warning', function() {

@@ -14,9 +14,6 @@ import (
 )
 
 var (
-	// key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
-	// key   = []byte("super-secret-key")
-	// store = sessions.NewCookieStore(key)
 	store       *sessions.FilesystemStore = sessions.NewFilesystemStore("", securecookie.GenerateRandomKey(64))
 	sessionName                           = "cookie-name"
 )
@@ -37,6 +34,7 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 	store.MaxLength(4 * 1024 * 1024)
 	gob.Register(model.ReversiPlay{})
 	gob.Register(model.ReversiSetting{})
+	gob.Register(model.ReversiPlayInterfaceImpl{})
 	session, err := store.Get(r, sessionName)
 	if err != nil {
 		// 不正なセッションだった場合は作り直す
@@ -52,25 +50,11 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 	}
-	rsi, ok2 := session.Values["reversisetting"].(model.ReversiSetting)
-	fmt.Println(ok2)
-	if ok2 == false {
-		rsi = *model.NewReversiSetting()
-		session.Values["reversisetting"] = rsi
-		err = session.Save(r, w)
-		if err != nil {
-			panic(err)
-		}
-	}
-	rp := rpi
-	rp.GetmSetting().Copy(&rsi)
-	rp.SetmCallbacks(model.NewCallbacksJson())
-	rp.SetmDelegate(model.NewReversiPlayDelegate(model.NewReversiPlayInterfaceImpl()))
+	rpi.SetmCallbacks(model.NewCallbacksJson())
+	rpi.SetmDelegate(model.NewReversiPlayDelegate(model.NewReversiPlayInterfaceImpl()))
 
 	r.ParseForm()
 	fmt.Println(r.Form)
-	fmt.Printf("%p ", &rsi)
-	fmt.Println(rsi)
 	function := r.FormValue("func")
 	res := model.NewResJson()
 	if function == "setSetting" {
@@ -79,44 +63,30 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 		if err := json.Unmarshal([]byte(jsonText), &s); err != nil {
 			log.Fatal(err)
 		}
-		rsi.Copy(s)
-		session.Values["reversisetting"] = rsi
-		rp.GetmSetting().Copy(s)
-		rp.Reset()
+		rpi.GetmSetting().Copy(s)
+		rpi.Reset()
 		res.SetAuth("[SUCCESS]")
 	} else if function == "reset" {
-		rp.Reset()
+		rpi.Reset()
 		res.SetAuth("[SUCCESS]")
 	} else if function == "reversiPlay" {
 		y, _ := strconv.Atoi(r.FormValue("y"))
 		x, _ := strconv.Atoi(r.FormValue("x"))
-		rp.ReversiPlay(y, x)
+		rpi.ReversiPlay(y, x)
 		res.SetAuth("[SUCCESS]")
 	}
-	fmt.Printf("%p ", &rsi)
-	fmt.Println(rsi)
-	session.Values["reversiplay"] = rpi
 	err = session.Save(r, w)
 	if err != nil {
 		panic(err)
 	}
-
-	rsi2, ok3 := session.Values["reversisetting"].(model.ReversiSetting)
-	fmt.Println(ok3)
-	if ok3 == false {
-	} else {
-		fmt.Printf("%p ", &rsi2)
-		fmt.Println(rsi2)
-	}
-
 	// jsonヘッダーを出力
 	w.Header().Set("Content-Type", "application/json")
 	// jsonエンコード
-	res.SetCallbacks(rp.GetmCallbacks())
-	outputJson, err := json.Marshal(res)
+	res.SetCallbacks(rpi.GetmCallbacks())
+	outputJSONgo, err := json.Marshal(res)
 	if err != nil {
 		panic(err)
 	}
 	// jsonデータを出力
-	w.Write(outputJson)
+	w.Write(outputJSONgo)
 }
