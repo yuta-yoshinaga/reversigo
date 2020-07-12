@@ -1,7 +1,7 @@
 pipelines:
   default:
     - step:
-     script:
+       script:
         - pipe: atlassian/heroku-deploy:1.1.4
           variables:
             HEROKU_API_KEY: $HEROKU_API_KEY
