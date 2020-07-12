@@ -1,6 +1,19 @@
 {
 	"comment": "",
 	"ignore": "test",
-	"package": [],
+	"package": [
+		{
+			"checksumSHA1": "mo95lsTo6uV/Yw9IhdwEA2mKJHI=",
+			"path": "github.com/gorilla/securecookie",
+			"revision": "61b4ad17eb88d0d1118560d1101176279be2bc88",
+			"revisionTime": "2019-10-28T04:23:04Z"
+		},
+		{
+			"checksumSHA1": "3A5lexd9Vm74rclsRrlaXUwHqgI=",
+			"path": "github.com/gorilla/sessions",
+			"revision": "15ff3511704639ab26f7843f780c015f4bf49565",
+			"revisionTime": "2020-01-05T16:41:44Z"
+		}
+	],
 	"rootPath": "reversigo"
 }
