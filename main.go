@@ -47,14 +47,20 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 	if ok == false {
 		rpi = *model.NewReversiPlay()
 		session.Values["reversiplay"] = rpi
-		session.Save(r, w)
+		err = session.Save(r, w)
+		if err != nil {
+			panic(err)
+		}
 	}
 	rsi, ok2 := session.Values["reversisetting"].(model.ReversiSetting)
 	fmt.Println(ok2)
 	if ok2 == false {
 		rsi = *model.NewReversiSetting()
 		session.Values["reversisetting"] = rsi
-		session.Save(r, w)
+		err = session.Save(r, w)
+		if err != nil {
+			panic(err)
+		}
 	}
 	rp := rpi
 	rp.GetmSetting().Copy(&rsi)
@@ -94,6 +100,15 @@ func frontController(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
+
+	rsi2, ok3 := session.Values["reversisetting"].(model.ReversiSetting)
+	fmt.Println(ok3)
+	if ok3 == false {
+	} else {
+		fmt.Printf("%p ", &rsi2)
+		fmt.Println(rsi2)
+	}
+
 	// jsonヘッダーを出力
 	w.Header().Set("Content-Type", "application/json")
 	// jsonエンコード
