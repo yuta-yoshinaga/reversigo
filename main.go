@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"reversigo/model"
 	"strconv"
 
@@ -26,8 +27,12 @@ func main() {
 	// アクセスのルーティングを設定します。
 	http.HandleFunc("/FrontController", frontController)
 	log.Println("Listening...")
-	// 80ポートでサーバーを立ち上げる
-	http.ListenAndServe(":80", nil)
+	// サーバーを立ち上げる
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "80"
+	}
+	http.ListenAndServe(":"+port, nil)
 }
 
 func frontController(w http.ResponseWriter, r *http.Request) {
