@@ -7,8 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"reversigo/model"
 	"strconv"
+
+	"github.com/yuta-yoshinaga/reversigo/model"
 
 	"github.com/gorilla/securecookie"
 	"github.com/gorilla/sessions"
