@@ -11,12 +11,11 @@
 ```sh
 git clone https://github.com/yuta-yoshinaga/reversigo.git
 cd reversigo
-rails server
 ```
 
 ### Deploy
-![herokubutton](https://www.herokucdn.com/deploy/button.svg)  
-[Heroku](https://reversigo.herokuapp.com/)
+[render live](https://reversigo.onrender.com/)
+[render dev](https://reversigo-dev.onrender.com/)
 
 ## Future Releases
 TensorFlowを使って、AIの更新がしたい。
